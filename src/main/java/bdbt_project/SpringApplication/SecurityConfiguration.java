@@ -18,13 +18,20 @@ public class SecurityConfiguration {
         http
                 .authorizeRequests()
                 .requestMatchers("/", "/index").permitAll()
+                .requestMatchers("/resources/static/**").permitAll()
+                .requestMatchers("/main").authenticated()
+                .requestMatchers("/main_admin").access("hasRole('ADMIN')")
+                .requestMatchers("/main_user").access("hasRole('USER')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/main")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutUrl("/index")
+                .logoutSuccessUrl("/index")
                 .permitAll();
         return http.build();
     }
