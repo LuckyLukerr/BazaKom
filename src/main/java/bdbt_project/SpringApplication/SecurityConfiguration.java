@@ -30,8 +30,8 @@ public class SecurityConfiguration {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/index")
-                .logoutSuccessUrl("/index")
+                .logoutUrl("/logout") // Default logout URL
+                .logoutSuccessUrl("/index") // Redirect to index after logout
                 .permitAll();
         return http.build();
     }
