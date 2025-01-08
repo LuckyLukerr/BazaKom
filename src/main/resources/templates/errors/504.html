@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Page</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mt-5">
+      <div class="alert alert-danger">
+        <h1><b>Error</b></h1>
+        <p style="font-size: 30px;"><strong>504 – Gateway Timeout</strong></p>
+        <p style="font-size: 20px;">The server is taking too long to respond. Please try again later.</p>
+        <form method="post" th:action="@{/}">
+          <button class="btn btn-primary" type="submit">Back to Home Page</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
