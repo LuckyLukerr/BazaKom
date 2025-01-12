@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <title>Main User Page</title>
 
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}"/>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 </head>
 <body>
@@ -14,7 +14,8 @@
   <div class="container">
     <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -31,8 +32,8 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" style="color:lightskyblue;">You are logged in as <b
-                  style="text-transform:capitalize">[[${T(org.springframework.security.core.context.SecurityContextHolder).context.authentication.name}]]</b></a>
+          <a class="nav-link" th:inline="text" style="color:lightskyblue;">You are logged in as <b
+                  style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
         </li>
 
       </ul>
@@ -42,24 +43,29 @@
 
 <div class="container">
   <div class="row">
+
     <div class="col-md-10 mt-5">
-      <!-- Form for logout -->
-      <form th:action="@{/logout}" method="post">
+      <form method="post" th:action="@{/index}">
         <div class="form-group">
-          <label style="font-size:30px">Welcome <a
-                  style="color:lightskyblue; text-transform:capitalize"><b>[[${T(org.springframework.security.core.context.SecurityContextHolder).context.authentication.name}]]</b></a>
-            to the Admin Dashboard!</label>
-          <div style="font-size:20px">If you want to log out, click the "Logout" button below.</div>
+          <label style="font-size:30px" th:inline="text">Welcome <a
+                  style="color:lightskyblue; text-transform:capitalize"><b>[[${#httpServletRequest.remoteUser}]]</b></a>
+            to the main page!</label>
+          <div style="font-size:20px">If you want to logout, click "Logout" button under this text.</div>
         </div>
 
-        <button class="btn btn-primary" type="submit" value="Logout">Logout</button>
+        <button class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Sign Out">Logout
+        </button>
       </form>
     </div>
+
   </div>
 </div>
 
-<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/2.11.6/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+
 </body>
 </html>
