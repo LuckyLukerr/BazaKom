@@ -6,13 +6,114 @@
 
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Main Page</title>
+
+        <!-- Bootstrap CSS -->
+        <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+        <style>
+            body {
+                font-family: 'Open Sans', sans-serif;
+                background: url('/js/images/background.jpg') no-repeat center center fixed;
+                background-size: cover;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }
+
+            .navbar {
+                background-color: #2c7d4b;
+                padding: 10px 0;
+            }
+
+            .navbar-brand {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: #fff;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 1.1rem;
+                margin-left: 20px;
+                color: #ecf0f1;
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: #bd8133;
+            }
+
+            .footer {
+                text-align: center;
+                padding: 20px 0;
+                background-color: #2c7d4b;
+                color: #fff;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+
+            .btn-primary {
+                background-color: #bd8133;
+                color: #fff;
+                border-radius: 50px;
+                transition: all 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                background-color: #e67e22;
+                transform: scale(1.05);
+            }
+
+            .container {
+                padding-top: 80px;
+            }
+
+            .form-group label {
+                font-size: 1.2rem;
+            }
+
+            .form-control {
+                font-size: 1rem;
+            }
+
+            .btn-custom {
+                font-size: 1.2rem;
+                font-weight: 600;
+                padding: 12px 30px;
+                background-color: #bd8133;
+                color: #fff;
+                border: none;
+                border-radius: 50px;
+                transition: all 0.3s ease;
+            }
+
+            .btn-custom:hover {
+                background-color: #e67e22;
+                transform: scale(1.05);
+            }
+
+            @media (max-width: 768px) {
+                .navbar-brand {
+                    font-size: 1.6rem;
+                }
+
+                .navbar-nav .nav-link {
+                    font-size: 1rem;
+                }
+            }
+        </style>
+    </head>
+
+
 </head>
 <body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">

@@ -1,107 +1,163 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Welcome Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centrum Komunikacji Miejskiej w Warszawie</title>
 
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <!-- Bootstrap CSS -->
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
 
+  <!-- Google Fonts dla lepszej typografii -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: url('/js/images/background.jpg') no-repeat center center fixed; /* Add your image here */
+      background-size: cover; /* Ensures the image covers the whole page */
+      color: #333; /* Dark text color */
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #2c7d4b; /* Dark green navbar background */
+      padding: 10px 0;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff; /* White text color */
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 1.1rem;
+      margin-left: 20px;
+      color: #ecf0f1; /* Light text color for navbar links */
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #bd8133; /* Light orange hover effect */
+    }
+
+    .container {
+      padding-top: 80px;
+      text-align: center;
+    }
+
+    .hero-section {
+      margin-top: 50px;
+      padding: 40px;
+      background: rgba(44, 125, 75, 0.8); /* Dark green overlay for hero section */
+      color: #fff; /* White text in hero section */
+      border-radius: 10px;
+    }
+
+    .hero-section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero-section p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .btn-custom {
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 12px 30px;
+      background-color: #bd8133; /* Light orange button background */
+      color: #fff; /* Button text color */
+      border: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #e67e22; /* Darker orange hover effect */
+      transform: scale(1.05);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #2c7d4b; /* Dark green footer background */
+      color: #fff; /* White text color */
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding-top: 60px;
+      }
+
+      .hero-section h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-section p {
+        font-size: 1rem;
+      }
+
+      .navbar-brand {
+        font-size: 1.6rem;
+      }
+
+      .navbar-nav .nav-link {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
+<body>
 
-<!-- <body th:style="'background: url(/assets/img/img.png) no-repeat center center fixed;'"> -->
-
-
-<!--<style th:inline="text">-->
-<!--    body{-->
-<!--        background: url([[@{/assets/img/img.png}]])-->
-<!--        no-repeat center center fixed;-->
-<!--    }-->
-<!--</style>-->
-
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<!-- Nawigacja -->
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
   <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/main}">Main</a>
+          <a class="nav-link" th:href="@{/main}">Home</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/main}">Login</a></a>
+          <a class="nav-link" th:href="@{/login}">Login</a>
         </li>
-
       </ul>
     </div>
   </div>
 </nav>
 
-
-<!--Using images in page    -->
-<!-- <img th:src="@{/assets/img/img.png}" alt="Image" class="img-fluid"> -->
-
-
+<!-- Sekcja Hero -->
 <div class="container">
-  <div class="row">
-    <div class="col-md-10 mt-5">
-
-      <label style="font-size:30px">Welcome to the home page!</label>
-      <div style="font-size:20px">If you want to login, click <a th:href="@{/main}"><b>here</b></a> or in the
-        upper right corner.
-      </div>
-
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 hero-section">
+      <h1>Welcome to Warsaw Public Transport Center!</h1>
+      <p>Discover public transport routes, timetables and up-to-date information. Get ready for a better and more convenient way to travel.</p>
+      <a href="#" th:href="@{/main}" class="btn btn-custom">Let's get started!</a>
     </div>
   </div>
 </div>
 
-<!--<div align="center">
-    <h1>Sales Records</h1>
+<!-- Stopka -->
+<div class="footer">
+  <p>&copy; 2025 Warsaw Public Transport Center | All rights reserved</p>
+</div>
 
-    <table border="1" cellpadding="10">
-
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-            <th>Action</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="sale : ${listSale}">
-            <td th:text="${sale.id}">ID</td>
-            <td th:text="${sale.item}">Item Name</td>
-            <td th:text="${sale.quantity}">Quantity</td>
-            <td th:text="${sale.amount}">Amount</td>
-        </tr>
-        </tbody>
-
-    </table>
-
-</div>-->
-
-
+<!-- Skrypty -->
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
 </html>
-
