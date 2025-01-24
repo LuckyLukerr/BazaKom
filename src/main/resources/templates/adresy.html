@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>Adresy</title>
+
+  <!-- Bootstrap CSS -->
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      padding-top: 56px; /* Space for fixed navbar */
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+
+    .navbar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .table td, .table th {
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .btn-primary, .btn-danger {
+      font-size: 14px;
+      padding: 5px 10px;
+      margin: 2px;
+    }
+
+    .form-inline {
+      display: flex;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1000px;
+    }
+
+    .add-button {
+      margin-bottom: 20px;
+    }
+
+    .logout-button {
+      border: none;
+      background: none;
+    }
+
+    .logout-button:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/main}">Main</a>
+        </li>
+
+        <!-- Show "Login" if the user is not logged in -->
+        <li class="nav-item" th:if="${#httpServletRequest.remoteUser == null}">
+          <a class="nav-link" th:href="@{/login}">Login</a>
+        </li>
+
+        <!-- Show "You are logged in as <username>" if the user is logged in -->
+        <li class="nav-item" th:if="${#httpServletRequest.remoteUser != null}">
+          <span class="nav-link text-light" th:inline="text">
+            You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
+          </span>
+        </li>
+
+        <!-- Show "Logout" if the user is logged in -->
+        <li class="nav-item" th:if="${#httpServletRequest.remoteUser != null}">
+          <form method="post" th:action="@{/logout}" class="form-inline">
+            <button class="logout-button text-light" type="submit">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Add New Entry Modal -->
+<div class="modal fade" id="addNewEntryModal" tabindex="-1" role="dialog" aria-labelledby="addNewEntryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNewEntryModalLabel">Dodaj nowy adres</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addNewEntryForm">
+          <div class="form-group">
+            <label for="miejscowosc">Miejscowość</label>
+            <input type="text" class="form-control" id="miejscowosc" name="miejscowosc" required>
+          </div>
+          <div class="form-group">
+            <label for="ulica">Ulica</label>
+            <input type="text" class="form-control" id="ulica" name="ulica" required>
+          </div>
+          <div class="form-group">
+            <label for="kod_pocztowy">Kod Pocztowy</label>
+            <input type="text" class="form-control" id="kod_pocztowy" name="kod_pocztowy" required>
+          </div>
+          <div class="form-group">
+            <label for="nr_domu">Nr domu</label>
+            <input type="text" class="form-control" id="nr_domu" name="nr_domu" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Zapisz</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center">
+  <h1>Adresy</h1>
+
+<!--  <a href="/new" class="btn btn-success add-button">Dodaj nowy adres</a>-->
+  <a href="#" class="btn btn-success add-button" data-toggle="modal"
+     data-target="#addNewEntryModal">Dodaj nowy adres</a>
+
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <!-- Table header -->
+      <thead class="thead-dark">
+      <tr>
+        <th>Nr adresu</th>
+        <th>Miejscowość</th>
+        <th>Ulica</th>
+        <th>Kod Pocztowy</th>
+        <th>Nr domu</th>
+        <th>Akcje</th>
+      </tr>
+      </thead>
+      <!-- Table body -->
+      <tbody>
+      <tr th:each="Adresy : ${listAdresy}">
+        <td th:text="${Adresy.id_adresu}">ID</td>
+        <td th:text="${Adresy.miasto}">Miejscowość</td>
+        <td th:text="${Adresy.ulica}">Ulica</td>
+        <td th:text="${Adresy.kod_pocztowy}">Kod Pocztowy</td>
+        <td th:text="${Adresy.nr_lokalu}">Nr domu</td>
+        <td>
+          <a th:href="@{'/edit/' + ${Adresy.id_adresu}}" class="btn btn-primary btn-sm">Edytuj</a>
+          <a th:href="@{'/delete/' + ${Adresy.id_adresu}}" class="btn btn-danger btn-sm">Usuń</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script>
+  $(document).ready(function() {
+    $('#addNewEntryForm').on('submit', function(event) {
+      event.preventDefault();
+
+      // Get CSRF token from the meta tag
+      var csrfToken = $('meta[name="_csrf"]').attr('content');
+      var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+      $.ajax({
+        url: '/save',
+        type: 'POST',
+        data: $(this).serialize(),
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader(csrfHeader, csrfToken);
+        },
+        success: function(response) {
+          $('#addNewEntryModal').modal('hide');
+          location.reload(); // Reload the page to see the new entry
+        },
+        error: function(error) {
+          console.error('Error:', error);
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

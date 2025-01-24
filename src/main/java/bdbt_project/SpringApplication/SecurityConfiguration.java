@@ -23,9 +23,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .password("admin")
                 .roles("ADMIN");
     }
+
     @Bean
     public PasswordEncoder getPasswordEncoder() { return NoOpPasswordEncoder.getInstance();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -44,6 +46,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/index")
                 .logoutSuccessUrl("/index")
                 .permitAll();
-
     }
 }
