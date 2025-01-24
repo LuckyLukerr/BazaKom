@@ -14,31 +14,34 @@
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
-            color: #9f9c9c;
             margin: 0;
             padding: 0;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background: linear-gradient(to bottom right, #5e5b59, #322e2e);
         }
 
-        /* Navbar styling */
+        /* Navbar Styling */
         .navbar {
-            background-color: #5e9f6e;
-            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .navbar-brand {
             font-size: 1.8rem;
             font-weight: 600;
-            color: white;
+            color: white !important;
+            letter-spacing: 1px;
         }
 
         .navbar-nav .nav-item .nav-link {
             color: white;
             font-size: 1.2rem;
             text-transform: uppercase;
+            margin-left: 15px;
+            transition: color 0.3s;
         }
 
         .navbar-nav .nav-item .nav-link:hover {
@@ -60,12 +63,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #76c896;
-            color: white;
+            background-color: white;
+            color: #333;
             border-radius: 15px;
             width: 100%;
             max-width: 400px;
-            padding: 20px;
+            padding: 40px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .form-container {
@@ -93,7 +97,7 @@
         .form-control {
             font-size: 0.9rem;
             padding: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .form-control:focus {
@@ -112,7 +116,6 @@
             transition: all 0.3s ease;
             box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
         }
-
         .btn-custom:hover {
             background-color: #e67e22;
             transform: scale(1.05);
@@ -131,11 +134,48 @@
         .footer {
             text-align: center;
             padding: 20px 0;
-            background-color: #5e9f6e;
-            color: black;
-            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+            margin-top: auto;
+            font-size: 0.9rem;
         }
 
+        .footer p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .footer a {
+            color: #ff8c00;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #e67e22;
+        }
+
+         .btn-custom-register {
+             font-size: 1rem;
+             font-weight: 600;
+             padding: 8px 20px; /* Reduce horizontal padding */
+             background-color: #1271a3; /* Blue color */
+             color: #fff;
+             border: none;
+             border-radius: 20px;
+             text-align: center;
+             transition: all 0.3s ease;
+             box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+             display: inline-block;
+             width: auto; /* Ensure the width adjusts based on the padding */
+         }
+
+        .btn-custom-register:hover {
+            background-color: #0e5d84; /* Darker blue shade */
+            transform: scale(1.05);
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
+        }
         /* Media Query for smaller screens */
         @media (max-width: 768px) {
             .main-container {
@@ -197,8 +237,10 @@
                 <div th:if="${param.error}" class="error-message">
                     ERROR: Invalid username or password!
                 </div>
+                <button class="btn btn-custom" type="submit" value="Sign In" style="margin-bottom: 10px;">Login</button>
+                <br>
+                <button class="btn btn-custom-register" type="submit" value="Register" >Register</button>
 
-                <button class="btn btn-custom" type="submit" value="Sign In">Login</button>
             </form>
         </div>
     </div>

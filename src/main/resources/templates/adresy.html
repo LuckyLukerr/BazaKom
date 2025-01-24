@@ -10,76 +10,187 @@
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
-      padding-top: 56px; /* Space for fixed navbar */
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f4f6f9;
+      color: #5e5e5e;
+      margin: 0;
+      padding: 0;
     }
 
-    h1 {
-      color: #007bff;
-      margin-bottom: 30px;
-    }
-
+    /* Navbar styling */
     .navbar {
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #5e9f6e;
+      padding: 15px 30px;
     }
 
-    .table {
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .table th {
-      background-color: #007bff;
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 600;
       color: white;
     }
 
-    .table td, .table th {
-      vertical-align: middle;
+    .navbar-nav .nav-item .nav-link {
+      color: white;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
+
+    .navbar-nav .nav-item .nav-link:hover {
+      color: #ff8c00;
+    }
+
+    .navbar-nav .nav-item .nav-link:hover {
+      color: #ff8c00;
+    }
+
+    /* Main Container Styling */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
       text-align: center;
     }
 
-    .btn-primary, .btn-danger {
-      font-size: 14px;
-      padding: 5px 10px;
-      margin: 2px;
+    h1 {
+      color: #5e9f6e;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
     }
 
-    .form-inline {
-      display: flex;
-      align-items: center;
-    }
-
-    .container {
-      max-width: 1000px;
-    }
-
-    .add-button {
-      margin-bottom: 20px;
-    }
-
-    .logout-button {
+    .btn-success {
+      background-color: #dbab8c;
       border: none;
-      background: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      color: white;
+      transition: all 0.3s ease;
     }
 
-    .logout-button:hover {
-      text-decoration: underline;
+    .btn-success:hover {
+      background-color: #e67e22;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+      transform: scale(1.05);
+    }
+
+    /* Table Styling */
+    .table {
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th {
+      background-color: #5e9f6e;
+      color: white;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 15px;
+    }
+
+    .table td, .table th {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .table td {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .table td:last-child {
+      white-space: nowrap;
+    }
+
+    .btn-primary, .btn-danger {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #007bff;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .btn-danger:hover {
+      background-color: #e74c3c;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      background-color: #5e9f6e;
+      color: white;
+      border-bottom: none;
+    }
+
+    .modal-header .close {
+      color: white;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .form-group label {
+      font-size: 1.2rem;
+      color: #5e5e5e;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      border-radius: 30px;
+      padding: 10px;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #5e9f6e;
+      box-shadow: 0px 0px 8px rgba(94, 159, 110, 0.5);
+    }
+
+    .btn-primary {
+      background-color: #5e9f6e;
+      border: none;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .btn-success {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+
+      .table {
+        font-size: 0.9rem;
+      }
+
+      .modal-body {
+        padding: 15px;
+      }
     }
   </style>
+
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
