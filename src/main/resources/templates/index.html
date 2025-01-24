@@ -6,99 +6,108 @@
   <title>Centrum Komunikacji Miejskiej w Warszawie</title>
 
   <!-- Bootstrap CSS -->
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Google Fonts dla lepszej typografii -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
-      background: url('/js/images/background.jpg') no-repeat center center fixed; /* Add your image here */
-      background-size: cover; /* Ensures the image covers the whole page */
-      color: #333; /* Dark text color */
+      background: url('/js/images/background.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
       margin: 0;
       padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Ensure content is spaced correctly */
     }
 
+    /* Navbar styling */
     .navbar {
-      background-color: #2c7d4b; /* Dark green navbar background */
-      padding: 10px 0;
+      background-color: #5e9f6e;
+      padding: 15px 30px;
     }
 
     .navbar-brand {
       font-size: 1.8rem;
       font-weight: 600;
-      color: #fff; /* White text color */
+      color: white;
     }
 
-    .navbar-nav .nav-link {
-      font-size: 1.1rem;
-      margin-left: 20px;
-      color: #ecf0f1; /* Light text color for navbar links */
+    .navbar-nav .nav-item .nav-link {
+      color: white;
+      font-size: 1.2rem;
+      text-transform: uppercase;
     }
 
-    .navbar-nav .nav-link:hover {
-      color: #bd8133; /* Light orange hover effect */
+    .navbar-nav .nav-item .nav-link:hover {
+      color: #ff8c00;
     }
 
+    /* Hero Section styling */
     .container {
-      padding-top: 80px;
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      flex-grow: 1;
       text-align: center;
     }
 
     .hero-section {
-      margin-top: 50px;
-      padding: 40px;
-      background: rgba(44, 125, 75, 0.8); /* Dark green overlay for hero section */
-      color: #fff; /* White text in hero section */
+      background-color: rgba(50, 136, 83, 0.8);
+      color: white;
+      padding: 30px 20px;
       border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+      transform: translateY(-20px); /* Move it up by 20px */
     }
+
 
     .hero-section h1 {
       font-size: 3rem;
       font-weight: 700;
       margin-bottom: 20px;
+      margin-top: 30px;
     }
 
     .hero-section p {
       font-size: 1.2rem;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .btn-custom {
       font-size: 1.2rem;
       font-weight: 600;
-      padding: 12px 30px;
-      background-color: #bd8133; /* Light orange button background */
-      color: #fff; /* Button text color */
+      padding: 12px 20px;
+      background-color: #dbab8c;
+      color: #fff;
       border: none;
       border-radius: 50px;
       transition: all 0.3s ease;
     }
 
     .btn-custom:hover {
-      background-color: #e67e22; /* Darker orange hover effect */
+      background-color: #e67e22;
       transform: scale(1.05);
     }
 
+    /* Footer Styling */
     .footer {
       text-align: center;
       padding: 20px 0;
-      background-color: #2c7d4b; /* Dark green footer background */
-      color: #fff; /* White text color */
-      position: absolute;
-      bottom: 0;
+      background-color: #5e9f6e;
+      color: black;
       width: 100%;
     }
 
+    /* Media Query for smaller screens */
     @media (max-width: 768px) {
-      .container {
-        padding-top: 60px;
-      }
-
       .hero-section h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
       }
 
       .hero-section p {
@@ -109,55 +118,47 @@
         font-size: 1.6rem;
       }
 
-      .navbar-nav .nav-link {
-        font-size: 1rem;
+      .navbar-nav .nav-item .nav-link {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- Nawigacja -->
-<nav class="navbar navbar-expand-lg navbar-dark static-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/main}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/login}">Login</a>
-        </li>
-      </ul>
-    </div>
+<!-- Navbar Section -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/index}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/login}">Login</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
-<!-- Sekcja Hero -->
+<!-- Hero Section -->
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6 hero-section">
-      <h1>Welcome to Warsaw Public Transport Center!</h1>
-      <p>Discover public transport routes, timetables and up-to-date information. Get ready for a better and more convenient way to travel.</p>
-      <a href="#" th:href="@{/main}" class="btn btn-custom">Let's get started!</a>
-    </div>
+  <div class="hero-section">
+    <h1>Welcome to Warsaw Public Transport Center!</h1>
+    <p>Explore public transport routes, timetables, and real-time information to make your travel experience more convenient.</p>
+    <a href="#" th:href="@{/main}" class="btn btn-custom">Let's get started!</a>
   </div>
 </div>
 
-<!-- Stopka -->
+<!-- Footer Section -->
 <div class="footer">
   <p>&copy; 2025 Warsaw Public Transport Center | All rights reserved</p>
 </div>
 
-<!-- Skrypty -->
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
