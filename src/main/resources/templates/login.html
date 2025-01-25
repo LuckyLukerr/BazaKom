@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: linear-gradient(to bottom right, #7ebccc, #0f8e8e);
+            background: linear-gradient(to bottom right, #6c6c71, #414343);
         }
 
         /* Navbar Styling */
@@ -239,7 +239,10 @@
                 </div>
                 <button class="btn btn-custom" type="submit" value="Sign In" style="margin-bottom: 10px;">Login</button>
                 <br>
-                <button class="btn btn-custom-register" type="submit" value="Register" >Register</button>
+                </button>
+
+                <a href="#" class="btn btn-custom-register" data-toggle="modal"
+                   data-target="#addNewEntryModal">Register</a>
 
             </form>
         </div>
@@ -258,6 +261,33 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#addNewEntryForm').on('submit', function(event) {
+            event.preventDefault();
+
+            // Get CSRF token from the meta tag
+            var csrfToken = $('meta[name="_csrf"]').attr('content');
+            var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+            $.ajax({
+                url: '/save',
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#addNewEntryModal').modal('hide');
+                    location.reload(); // Reload the page to see the new entry
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

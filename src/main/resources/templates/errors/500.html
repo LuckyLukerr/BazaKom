@@ -5,32 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Error Page</title>
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      object-position: center;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: white !important;
+      letter-spacing: 1px;
+    }
+
+    .navbar-nav .nav-item .nav-link {
+      color: white;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      margin-left: 15px;
+      transition: color 0.3s;
+    }
+
+    .navbar-nav .nav-item .nav-link:hover {
+      color: #ff8c00;
+    }
+
+    .error-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .error-message {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .error-message h1 {
+      font-size: 80px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .error-message p {
+      font-size: 25px;
+      margin-bottom: 30px;
+    }
+
+    .btn-primary {
+      background-color: #ff8c00;
+      border-color: #ff8c00;
+      font-size: 18px;
+      padding: 12px 30px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #e07b00;
+      border-color: #e07b00;
+    }
+  </style>
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
+  <button class="navbar-toggler align-content-center" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 </nav>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 mt-5">
-      <div class="alert alert-danger">
-        <h1><b>Error</b></h1>
-        <p style="font-size: 30px;"><strong>500 – Internal Server Error</strong></p>
-        <p style="font-size: 20px;">Something went wrong on our end. Please try again later.</p>
-        <form method="post" th:action="@{/index}">
-          <button class="btn btn-primary" type="submit">Back to Home Page</button>
-        </form>
-      </div>
-    </div>
+<div class="error-container">
+  <div class="error-message">
+    <h1>Error</h1>
+    <p><strong>500 – Internal Server Error</strong></p>
+    <p>Something went wrong on our end. Please try again later.</p>
+    <form method="post" th:action="@{/index}">
+      <button class="btn btn-primary" type="submit">Back to Home Page</button>
+    </form>
   </div>
 </div>
 
@@ -38,5 +111,6 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 </body>
 </html>
