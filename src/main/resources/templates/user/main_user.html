@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main User Page</title>
+  <title>Main Admin Page</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -14,108 +14,83 @@
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to bottom right, #aac1ca, #f8ffff);
+      background-size: cover;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-  <head>
-    <meta charset="UTF-8"/>
-    <title>Main User Page</title>
+    .navbar {
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-    <!-- Bootstrap CSS -->
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: white !important;
+      letter-spacing: 1px;
+    }
 
-    <style>
+    .navbar-nav .nav-item .nav-link {
+      color: white;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      margin-left: 15px;
+      transition: color 0.3s;
+    }
 
-      body {
-        font-family: 'Open Sans', sans-serif;
-        background: linear-gradient(to bottom right, #5e5b59, #322e2e) no-repeat center center fixed;
-        background-size: cover;
-        color: #fff;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
+    .navbar-nav .nav-item .nav-link:hover {
+      color: #ff8c00;
+    }
 
-      /* Navbar Styling */
-      .navbar {
-        background: rgba(0, 0, 0, 0.8);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
+    .header {
+      height: 200px;
+      background: rgba(0, 0, 0, 0.7) url('https://via.placeholder.com/1920x250') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
 
-      .navbar-brand {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: white !important;
-        letter-spacing: 1px;
-      }
+    .btn-custom {
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      background-color: lightskyblue;
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      transition: all 0.3s ease;
+      box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    }
 
-      .navbar-nav .nav-item .nav-link {
-        color: white;
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        margin-left: 15px;
-        transition: color 0.3s;
-      }
-
-      .navbar-nav .nav-item .nav-link:hover {
-        color: #ff8c00;
-      }
-
-      .footer a:hover {
-        color: #e67e22;
-      }
-      .btn-custom {
-        font-size: 1rem; /* Adjust text size */
-        font-weight: 600; /* Change text weight */
-        padding: 8px 16px; /* Control button size */
-        background-color: lightskyblue; /* Background color */
-        color: #fff; /* Text color */
-        border: none; /* Remove borders */
-        border-radius: 40px; /* Rounded edges */
-        transition: all 0.3s ease; /* Smooth hover effect */
-        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1); /* Add shadow */
-      }
-
-      .btn-custom:hover {
-        background-color: #1271a3; /* Change color on hover */
-        transform: scale(1.05); /* Add slight enlargement */
-        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
-      }
-
-      /* Media Query for smaller screens */
-      @media (max-width: 768px) {
-        .main-container {
-          flex-direction: column;
-          padding: 10px;
-        }
-
-        .right-panel {
-          margin-left: 0;
-          margin-top: 20px;
-          height: 300px;
-        }
-
-        .navbar-brand {
-          font-size: 1.6rem;
-        }
-
-        .navbar-nav .nav-item .nav-link {
-          font-size: 1.1rem;
-        }
-      }
-    </style>
-  </head>
+    .btn-custom:hover {
+      background-color: #1271a3;
+      transform: scale(1.05);
+      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
 <body>
 
 <!-- Navigation -->
-
 <nav class="navbar navbar-expand-lg navbar-dark">
   <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
   <div class="collapse navbar-collapse" id="navbarNav">
-  </button>
-  <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav ml-auto">
-
       <li class="nav-item">
         <a class="nav-link" th:href="@{/index}">Home</a>
       </li>
@@ -124,28 +99,29 @@
           <span class="sr-only">(current)</span>
         </a>
       </li>
-
       <li class="nav-item">
         <div class="d-flex align-items-center">
           <a class="nav-link" th:inline="text" style="color:lightskyblue;">
             You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
           </a>
           <form method="post" th:action="@{/index}" class="ml-3">
-            <button class="btn-custom" type="submit" onclick="successfullyLogout()">Logout</button>
+            <button class="btn-custom" type="submit">Logout</button>
           </form>
         </div>
       </li>
-
     </ul>
-  </div>
   </div>
 </nav>
 
+<!-- Header -->
+<div class="header">
+  <span>Welcome, [[${#httpServletRequest.remoteUser}]] !</span>
+</div>
 
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/script.js}"></script>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
