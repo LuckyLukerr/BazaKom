@@ -23,17 +23,19 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/main").setViewName("main");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/adresy").setViewName("adresy");
+        registry.addViewController("/linie").setViewName("admin/linie");
 
         registry.addViewController("/main_admin").setViewName("admin/main_admin");
         registry.addViewController("/main_user").setViewName("user/main_user");
     }
 
+    //ADRESY
     @Autowired
-    private AdresyDAO dao;
+    private AdresyDAO daoAdresy;
 
     @RequestMapping("/adresy")
-    public String viewHomePage(Model model) {
-        List<Adresy> listAdresy = dao.list();
+    public String viewAdresy(Model model) {
+        List<Adresy> listAdresy = daoAdresy.list();
         model.addAttribute("listAdresy", listAdresy);
         return "adresy";
     }
@@ -45,30 +47,80 @@ public class AppController implements WebMvcConfigurer {
         return "new_form";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("adresy") Adresy adresy) {
-        dao.save(adresy);
+    @RequestMapping(value = "/saveAdresy", method = RequestMethod.POST)
+    public String saveAdresy(@ModelAttribute("adresy") Adresy adresy) {
+        daoAdresy.saveAdresy(adresy);
         return "redirect:/adresy";
     }
 
-    @RequestMapping("/edit/{id_adresu}")
+    @RequestMapping("/editAdresy/{id_adresu}")
     public ModelAndView showEditForm(@PathVariable(name = "id_adresu") int id_adresu) {
         ModelAndView mav = new ModelAndView("edit_form");
-        Adresy adresy = dao.get(id_adresu);
+        Adresy adresy = daoAdresy.get(id_adresu);
         mav.addObject("adresy", adresy);
         return mav;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute("adresy") Adresy adresy) {
-        dao.update(adresy);
+    @RequestMapping(value = "/updateAdresy", method = RequestMethod.POST)
+    public String updateAdresy(@ModelAttribute("adresy") Adresy adresy) {
+        daoAdresy.updateAdresy(adresy);
         return "redirect:/adresy";
     }
 
-    @RequestMapping("/delete/{id_adresu}")
-    public String delete(@PathVariable(name = "id_adresu") int id_adresu) {
-        dao.delete(id_adresu);
+    @RequestMapping("/deleteAdresy/{id_adresu}")
+    public String deleteAdresy(@PathVariable(name = "id_adresu") int id_adresu) {
+        daoAdresy.deleteAdresy(id_adresu);
         return "redirect:/adresy";
+    }
+
+    //LINIE
+    @Autowired
+    private LinieDAO daoLinie;
+
+    @RequestMapping("/linie")
+    public String viewLinie(Model model) {
+        List<Linie> listLinie = daoLinie.list();
+        model.addAttribute("listLinie", listLinie);
+        return "admin/linie";
+    }
+    @RequestMapping(value = "/saveLinie", method = RequestMethod.POST)
+    public String saveLinie(@ModelAttribute("linie") Linie linie) {
+        try {
+            daoLinie.saveLinie(linie);
+            return "redirect:/linie";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "redirect:/linie";
+        }
+    }
+    @RequestMapping(value = "/updateLinie", method = RequestMethod.POST)
+    public String updateLinie(@ModelAttribute("linie") Linie linie) {
+        daoLinie.updateLinie(linie);
+        return "redirect:linie";
+    }
+    @RequestMapping(value = "/editLinie", method = RequestMethod.POST)
+    public String editLinie( @ModelAttribute("linie") Linie linie) {
+        Linie existingLinie = daoLinie.get(linie.getId_lini());  // Pobierz istniejący rekord po ID
+
+        // Zaktualizuj pola
+        existingLinie.setId_lini(linie.getId_lini());
+        existingLinie.setNazwa_linii(linie.getNazwa_linii());
+        existingLinie.setTyp_linii(linie.getTyp_linii());
+        existingLinie.setDni_dzialania(linie.getDni_dzialania());
+        existingLinie.setGodzina_rozpoczecia(linie.getGodzina_rozpoczecia());
+        existingLinie.setGodzina_zakonczenia(linie.getGodzina_zakonczenia());
+        existingLinie.setId_centrali(linie.getId_centrali());
+        existingLinie.setId_trasy(linie.getId_trasy());
+
+        // Zaktualizuj rekord w bazie danych
+        daoLinie.updateLinie(existingLinie);
+        return "redirect:/linie"; // Przekierowanie do listy linii
+    }
+
+    @RequestMapping("/deleteLinie/{id_lini}")
+    public String deleteLinie(@PathVariable(name = "id_lini") int id_lini) {
+        daoLinie.deleteLinie(id_lini);
+        return "redirect:/linie";
     }
 
     @Controller

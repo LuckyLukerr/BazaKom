@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AdresyDAOTest {
     private AdresyDAO dao;
+    private LinieDAO daoLinie;
     @BeforeEach
     void setUp() throws Exception{
         DriverManagerDataSource datasource = new DriverManagerDataSource();
@@ -20,6 +21,7 @@ public class AdresyDAOTest {
         datasource.setDriverClassName("oracle.jdbc.OracleDriver");
 
         dao = new AdresyDAO(new JdbcTemplate(datasource));
+        daoLinie = new LinieDAO(new JdbcTemplate(datasource));
     }
 
     @Test
@@ -31,12 +33,14 @@ public class AdresyDAOTest {
     @Test
     void testSave() {
         Adresy adresy = new Adresy(50, "Warszawa", "Marszałkowska", "00-000", "1");
-        dao.save(adresy);
+        dao.saveAdresy(adresy);
+        Linie linie = new Linie(2, "a", "Metro", "c", "ab", "12:12", "1", "1");
+        daoLinie.saveLinie(linie);
     }
 
     @Test
     void testGet() {
-        int id = 21;
+        int id = 1;
         Adresy adresy = dao.get(id);
         System.out.println(adresy.toString());
     }
@@ -44,17 +48,19 @@ public class AdresyDAOTest {
     @Test
     void testUpdate() {
         Adresy adresy = new Adresy();
-        adresy.setID_ADRESU(1);
-        adresy.setMIASTO("Warszawa111");
-        adresy.setULICA("Marszałkowska111");
-        adresy.setKOD_POCZTOWY("11-000");
-        adresy.setNR_LOKALU("12");
-        dao.update(adresy);
+        adresy.setId_adresu(1);
+        adresy.setMiasto("Warszawa");
+        adresy.setUlica("Marszałkowska11");
+        adresy.setKod_pocztowy("33-000");
+        adresy.setNr_lokalu("12");
+        Linie linie = new Linie(1, "a", "Metro", "c", "ab", "12:12", "1", "1");
+        dao.updateAdresy(adresy);
+        daoLinie.updateLinie(linie);
     }
 
     @Test
     void testDelete() {
         int id = 62;
-        dao.delete(id);
+        dao.deleteAdresy(id);
     }
 }

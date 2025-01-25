@@ -29,7 +29,7 @@ public class AdresyDAO {
         return listAdresy;
     }
 
-    public void save(Adresy adresy){
+    public void saveAdresy(Adresy adresy){
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
         insertActor.withTableName("adresy").usingColumns("miasto", "ulica", "kod_pocztowy", "nr_lokalu");
 
@@ -45,15 +45,15 @@ public class AdresyDAO {
         return adres;
     }
 
-    public void update(Adresy adresy){
+    public void updateAdresy(Adresy adresy){
         String sql = "UPDATE adresy SET miasto=:miasto, ulica=:ulica, kod_pocztowy=:kod_pocztowy, nr_lokalu=:nr_lokalu WHERE id_adresu=:id_adresu";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(adresy);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql, param);
     }
 
-    public void delete(int nr_adresu){
+    public void deleteAdresy(int id_adresu){
         String sql = "DELETE FROM adresy WHERE id_adresu = ?";
-        jdbcTemplate.update(sql, nr_adresu);
+        jdbcTemplate.update(sql, id_adresu);
     }
 }

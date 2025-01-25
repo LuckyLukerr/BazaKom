@@ -1,0 +1,467 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Admin Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <title>Main Page</title>
+
+        <!-- Bootstrap CSS -->
+        <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+        <style>
+
+            body {
+                font-family: 'Open Sans', sans-serif;
+                background: linear-gradient(to bottom right, #7ebccc, #0f8e8e);
+                background-size: cover;
+                color: #fff;
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Navbar Styling */
+            .navbar {
+                background: rgba(0, 0, 0, 0.8);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar-brand {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: white !important;
+                letter-spacing: 1px;
+            }
+
+            .navbar-nav .nav-item .nav-link {
+                color: white;
+                font-size: 1.2rem;
+                text-transform: uppercase;
+                margin-left: 15px;
+                transition: color 0.3s;
+            }
+
+            .navbar-nav .nav-item .nav-link:hover {
+                color: #ff8c00;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 40px 20px;
+                text-align: center;
+                margin-top: 20px; /* Add margin to move content closer to the top */
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                color: #1a202c;
+                margin-bottom: 30px;
+            }
+            .btn-custom {
+                font-size: 1rem; /* Adjust text size */
+                font-weight: 600; /* Change text weight */
+                padding: 8px 16px; /* Control button size */
+                background-color: lightskyblue; /* Background color */
+                color: #fff; /* Text color */
+                border: none; /* Remove borders */
+                border-radius: 40px; /* Rounded edges */
+                transition: all 0.3s ease; /* Smooth hover effect */
+                box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1); /* Add shadow */
+            }
+
+            .btn-custom:hover {
+                background-color: #1271a3; /* Change color on hover */
+                transform: scale(1.05); /* Add slight enlargement */
+                box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+            }
+
+            /* Button Styles */
+            .btn-success {
+                background-color: #1e8c8d;
+                border-radius: 30px;
+                color: white;
+                font-size: 1.1rem;
+                padding: 10px 30px;
+                border: none;
+                transition: background-color 0.3s, transform 0.3s;
+            }
+
+            .btn-success:hover {
+                background-color: #127a7a;
+                transform: scale(1.05);
+            }
+
+            /* Space between button and table */
+            .add-button {
+                margin-bottom: 20px; /* Add margin between button and table */
+            }
+
+            .table {
+                background-color: white;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .table th {
+                background-color: #1a202c;
+                color: white;
+                font-weight: bold;
+                padding: 15px;
+            }
+
+            .table td {
+                padding: 12px;
+                border-bottom: 1px solid #f1f1f1;
+            }
+
+            /* Button Styles for Table */
+            .btn-primary, .btn-danger {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                border-radius: 20px;
+                transition: transform 0.3s;
+            }
+
+            .btn-primary:hover {
+                background-color: #007bff;
+                transform: scale(1.05);
+            }
+
+            .btn-danger:hover {
+                background-color: #e74c3c;
+                transform: scale(1.05);
+            }
+
+            .modal-content {
+                border-radius: 10px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .modal-header {
+                background-color: #1e8c8d;
+                color: white;
+                margin-bottom: 10px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .form-group label {
+                font-size: 1.2rem;
+                color: #1a202c;
+                margin-bottom: 10px;
+            }
+
+            .form-control {
+                border-radius: 30px;
+                padding: 12px;
+                font-size: 1rem;
+                border: 1px solid #ddd;
+                transition: border-color 0.3s;
+            }
+
+            .form-control:focus {
+                border-color: #1e8c8d;
+                box-shadow: 0 0 5px rgba(30, 140, 141, 0.3);
+            }
+
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .btn-success {
+                    font-size: 1rem;
+                    padding: 8px 16px;
+                }
+
+                .table {
+                    font-size: 0.9rem;
+                }
+            }
+        </style>
+
+    </head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/index}">Home</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Main
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link" th:inline="text" style="color:lightskyblue;">
+                            You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
+                        </a>
+                        <form method="post" th:action="@{/index}" class="ml-3">
+                            <button class="btn-custom" type="submit" onclick="successfullyLogout()">Logout</button>
+                        </form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Add New Entry Modal -->
+<div class="modal fade" id="addNewEntryModal" tabindex="-1" role="dialog" aria-labelledby="addNewEntryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewEntryModalLabel">Dodaj nową linię</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addNewEntryForm">
+                    <div class="form-group">
+                        <label for="nazwa_linii">Nazwa linii</label>
+                        <input type="text" class="form-control" id="nazwa_linii" name="nazwa_linii" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="typ_linii">Typ linii</label>
+                        <input type="text" class="form-control" id="typ_linii" name="typ_linii" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni_dzialania">Dni działania</label>
+                        <input type="text" class="form-control" id="dni_dzialania" name="dni_dzialania" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="godzina_rozpoczecia">Godzina rozpoczęcia</label>
+                        <input type="text" class="form-control" id="godzina_rozpoczecia" name="godzina_rozpoczecia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="godzina_zakonczenia">Godzina zakończenia</label>
+                        <input type="text" class="form-control" id="godzina_zakonczenia" name="godzina_zakonczenia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_centrali">ID centrali</label>
+                        <input type="text" class="form-control" id="id_centrali" name="id_centrali" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_trasy">ID trasy</label>
+                        <input type="text" class="form-control" id="id_trasy" name="id_trasy" required>
+                    </div>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="editEntryModal" tabindex="-1" role="dialog" aria-labelledby="editEntryModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editEntryModalLabel">Edytuj linię</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="editEntryForm">
+                <input type="hidden" id="edit_id_lini" name="id_lini"/>
+                <div class="form-group">
+                    <label for="edit_nazwa_linii">Nazwa linii</label>
+                    <input type="text" class="form-control" id="edit_nazwa_linii" name="nazwa_linii" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_typ_linii">Typ linii</label>
+                    <input type="text" class="form-control" id="edit_typ_linii" name="typ_linii" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_dni_dzialania">Dni działania</label>
+                    <input type="text" class="form-control" id="edit_dni_dzialania" name="dni_dzialania" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_godzina_rozpoczecia">Godzina rozpoczęcia</label>
+                    <input type="text" class="form-control" id="edit_godzina_rozpoczecia" name="godzina_rozpoczecia" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_godzina_zakonczenia">Godzina zakończenia</label>
+                    <input type="text" class="form-control" id="edit_godzina_zakonczenia" name="godzina_zakonczenia" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_id_centrali">ID centrali</label>
+                    <input type="text" class="form-control" id="edit_id_centrali" name="id_centrali" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_id_trasy">ID trasy</label>
+                    <input type="text" class="form-control" id="edit_id_trasy" name="id_trasy" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container text-center">
+    <h1>Linie</h1>
+
+    <!--  <a href="/new" class="btn btn-success add-button">Dodaj nowy adres</a>-->
+    <a href="#" class="btn btn-success add-button" data-toggle="modal"
+       data-target="#addNewEntryModal">Dodaj nową linię</a>
+
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <!-- Table header -->
+            <thead class="thead-dark">
+            <tr>
+                <th>ID linii</th>
+                <th>Nazwa linii</th>
+                <th>Typ linii</th>
+                <th>Dni działania</th>
+                <th>Godzina rozpoczęcia</th>
+                <th>Godzina zakończenia</th>
+                <th>ID centrali</th>
+                <th>ID trasy</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <!-- Table body -->
+            <tbody>
+            <tr th:each="Linie : ${listLinie}">
+                <td th:text="${Linie.id_lini}">ID linii</td>
+                <td th:text="${Linie.nazwa_linii}">Nazwa linii</td>
+                <td th:text="${Linie.typ_linii}">Typ linii</td>
+                <td th:text="${Linie.dni_dzialania}">Dni działania</td>
+                <td th:text="${Linie.godzina_rozpoczecia}">Godzina rozpoczęcia</td>
+                <td th:text="${Linie.godzina_zakonczenia}">Godzina zakończenia</td>
+                <td th:text="${Linie.id_centrali}">ID centrali</td>
+                <td th:text="${Linie.id_trasy}">ID trasy</td>
+                <td>
+                    <button class="btn btn-primary btn-sm edit-button"
+                            th:data-id-lini="${Linie.id_lini}"
+                            th:data-nazwa-linii="${Linie.nazwa_linii}"
+                            th:data-typ-linii="${Linie.typ_linii}"
+                            th:data-dni-dzialania="${Linie.dni_dzialania}"
+                            th:data-godzina-rozpoczecia="${Linie.godzina_rozpoczecia}"
+                            th:data-godzina-zakonczenia="${Linie.godzina_zakonczenia}"
+                            th:data-id-centrali="${Linie.id_centrali}"
+                            th:data-id-trasy="${Linie.id_trasy}"
+                            data-toggle="modal"
+                            data-target="#editEntryModal">
+                        Edytuj
+                    </button>
+                    <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm">Usuń</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('#addNewEntryForm').on('submit', function(event) {
+            event.preventDefault();
+
+            // Get CSRF token from the meta tag
+            var csrfToken = $('meta[name="_csrf"]').attr('content');
+            var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+            $.ajax({
+                url: '/saveLinie',
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#addNewEntryModal').modal('hide');
+                    location.reload(); // Reload the page to see the new entry
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+        // Handle Edit button click
+        $('.edit-button').on('click', function() {
+            const idLini = $(this).data('id-lini')
+            const nazwaLinii = $(this).data('nazwa-linii');
+            const typLinii = $(this).data('typ-linii');
+            const dniDzialania = $(this).data('dni-dzialania');
+            const godzinaRozpoczecia = $(this).data('godzina-rozpoczecia');
+            const godzinaZakonczenia = $(this).data('godzina-zakonczenia');
+            const idCentrali = $(this).data('id-centrali');
+            const idTrasy = $(this).data('id-trasy');
+
+            // Populate the modal with the data
+            $('#edit_id_lini').val(idLini);
+            $('#edit_nazwa_linii').val(nazwaLinii);
+            $('#edit_typ_linii').val(typLinii);
+            $('#edit_dni_dzialania').val(dniDzialania);
+            $('#edit_godzina_rozpoczecia').val(godzinaRozpoczecia);
+            $('#edit_godzina_zakonczenia').val(godzinaZakonczenia);
+            $('#edit_id_centrali').val(idCentrali);
+            $('#edit_id_trasy').val(idTrasy);
+        });
+
+        // Handle form submission
+        $('#editEntryForm').on('submit', function(event) {
+            event.preventDefault();
+
+            // Get CSRF token
+            const csrfToken = $('meta[name="_csrf"]').attr('content');
+            const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+            // Send AJAX request
+            $.ajax({
+                url: '/editLinie', // Adjust the endpoint as needed
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#editEntryModal').modal('hide');
+                    location.reload(); // Reload to show updated data
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

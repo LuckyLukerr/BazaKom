@@ -299,8 +299,8 @@
         <td th:text="${Adresy.kod_pocztowy}">Kod Pocztowy</td>
         <td th:text="${Adresy.nr_lokalu}">Nr domu</td>
         <td>
-          <a th:href="@{'/edit/' + ${Adresy.id_adresu}}" class="btn btn-primary btn-sm">Edytuj</a>
-          <a th:href="@{'/delete/' + ${Adresy.id_adresu}}" class="btn btn-danger btn-sm">Usuń</a>
+          <a th:href="@{'/editAdresy/' + ${Adresy.id_adresu}}" class="btn btn-primary btn-sm">Edytuj</a>
+          <a th:href="@{'/deleteAdresy/' + ${Adresy.id_adresu}}" class="btn btn-danger btn-sm">Usuń</a>
         </td>
       </tr>
       </tbody>
@@ -322,7 +322,7 @@
       var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
 
       $.ajax({
-        url: '/save',
+        url: '/saveAdresy',
         type: 'POST',
         data: $(this).serialize(),
         beforeSend: function(xhr) {
