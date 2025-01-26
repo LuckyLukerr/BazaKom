@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdresyDAOTest {
     private AdresyDAO dao;
     private LinieDAO daoLinie;
+    private PasazerowieDAO daoPasazerowie;
     @BeforeEach
     void setUp() throws Exception{
         DriverManagerDataSource datasource = new DriverManagerDataSource();
@@ -22,6 +23,7 @@ public class AdresyDAOTest {
 
         dao = new AdresyDAO(new JdbcTemplate(datasource));
         daoLinie = new LinieDAO(new JdbcTemplate(datasource));
+        daoPasazerowie = new PasazerowieDAO(new JdbcTemplate(datasource));
     }
 
     @Test
@@ -36,6 +38,8 @@ public class AdresyDAOTest {
         dao.saveAdresy(adresy);
         Linie linie = new Linie(2, "a", "Metro", "c", "ab", "12:12", "1", "1");
         daoLinie.saveLinie(linie);
+        Pasazerowie pasazerowie = new Pasazerowie(2,"adam","cos", "123456789","mieszkanie@wp.pl","esa","esaxd");
+        daoPasazerowie.savePasazerowie(pasazerowie);
     }
 
     @Test

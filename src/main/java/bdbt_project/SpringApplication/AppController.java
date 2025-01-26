@@ -93,11 +93,7 @@ public class AppController implements WebMvcConfigurer {
             return "redirect:/linie";
         }
     }
-    @RequestMapping(value = "/updateLinie", method = RequestMethod.POST)
-    public String updateLinie(@ModelAttribute("linie") Linie linie) {
-        daoLinie.updateLinie(linie);
-        return "redirect:linie";
-    }
+    
     @RequestMapping(value = "/editLinie", method = RequestMethod.POST)
     public String editLinie( @ModelAttribute("linie") Linie linie) {
         Linie existingLinie = daoLinie.get(linie.getId_lini());  // Pobierz istniejący rekord po ID
@@ -121,6 +117,21 @@ public class AppController implements WebMvcConfigurer {
     public String deleteLinie(@PathVariable(name = "id_lini") int id_lini) {
         daoLinie.deleteLinie(id_lini);
         return "redirect:/linie";
+    }
+
+    //PASAZEROWIE
+    @Autowired
+    private PasazerowieDAO daoPasazerowie;
+
+    @RequestMapping(value = "/savePasazerowie", method = RequestMethod.POST)
+    public String savePasazerowie(@ModelAttribute("pasazerowie") Pasazerowie pasazerowie) {
+        try {
+            daoPasazerowie.savePasazerowie(pasazerowie);
+            return "redirect:/login";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "redirect:/login";
+        }
     }
 
     @Controller

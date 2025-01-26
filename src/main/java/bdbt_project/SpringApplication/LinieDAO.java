@@ -31,7 +31,7 @@ public class LinieDAO {
 
     public void saveLinie(Linie linie) {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("linie").usingColumns("nazwa_linii", "typ_linii", "dni_dzialania", "godzina_rozpoczecia", "godzina_zakonczenia", "id_centrali", "id_trasy");
+        insertActor.withTableName("linie").usingGeneratedKeyColumns("id_lini").usingColumns("nazwa_linii", "typ_linii", "dni_dzialania", "godzina_rozpoczecia", "godzina_zakonczenia", "id_centrali", "id_trasy");
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(linie);
         insertActor.execute(param);
