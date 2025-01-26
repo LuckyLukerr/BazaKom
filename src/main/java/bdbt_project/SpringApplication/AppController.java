@@ -29,50 +29,6 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/main_user").setViewName("user/main_user");
     }
 
-    //ADRESY
-    @Autowired
-    private AdresyDAO daoAdresy;
-
-    @RequestMapping("/adresy")
-    public String viewAdresy(Model model) {
-        List<Adresy> listAdresy = daoAdresy.list();
-        model.addAttribute("listAdresy", listAdresy);
-        return "adresy";
-    }
-
-    @RequestMapping("/new")
-    public String showNewForm(Model model) {
-        Adresy adresy = new Adresy();
-        model.addAttribute("adresy", adresy);
-        return "new_form";
-    }
-
-    @RequestMapping(value = "/saveAdresy", method = RequestMethod.POST)
-    public String saveAdresy(@ModelAttribute("adresy") Adresy adresy) {
-        daoAdresy.saveAdresy(adresy);
-        return "redirect:/adresy";
-    }
-
-    @RequestMapping("/editAdresy/{id_adresu}")
-    public ModelAndView showEditForm(@PathVariable(name = "id_adresu") int id_adresu) {
-        ModelAndView mav = new ModelAndView("edit_form");
-        Adresy adresy = daoAdresy.get(id_adresu);
-        mav.addObject("adresy", adresy);
-        return mav;
-    }
-
-    @RequestMapping(value = "/updateAdresy", method = RequestMethod.POST)
-    public String updateAdresy(@ModelAttribute("adresy") Adresy adresy) {
-        daoAdresy.updateAdresy(adresy);
-        return "redirect:/adresy";
-    }
-
-    @RequestMapping("/deleteAdresy/{id_adresu}")
-    public String deleteAdresy(@PathVariable(name = "id_adresu") int id_adresu) {
-        daoAdresy.deleteAdresy(id_adresu);
-        return "redirect:/adresy";
-    }
-
     //LINIE
     @Autowired
     private LinieDAO daoLinie;

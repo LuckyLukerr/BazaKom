@@ -28,7 +28,7 @@
 
             body {
                 font-family: 'Open Sans', sans-serif;
-                background: linear-gradient(to bottom right, #7ebccc, #0f8e8e);
+                background: linear-gradient(to bottom right, #aac1ca, #f8ffff);
                 background-size: cover;
                 color: #fff;
                 margin: 0;
@@ -114,31 +114,52 @@
                 margin-bottom: 20px; /* Add margin between button and table */
             }
 
-            .table {
-                background-color: white;
-                border-radius: 10px;
-                overflow: hidden;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
+                 /* Enhanced Table Styles */
+             .table {
+                 background-color: #bab3b3; /* Light background for table */
+                 border-radius: 15px; /* Rounded corners */
+                 overflow: hidden;
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+                 border-collapse: separate; /* Ensure separation for better spacing */
+             }
 
             .table th {
-                background-color: #1a202c;
-                color: white;
+                background-color: #676c71; /* Dark header for contrast */
+                color: #ffffff; /* White text for visibility */
                 font-weight: bold;
-                padding: 15px;
+                padding: 16px;
+                text-transform: uppercase; /* Uniform look for headers */
+                border-bottom: 2px solid #dee2e6; /* Add border below header */
             }
 
             .table td {
-                padding: 12px;
-                border-bottom: 1px solid #f1f1f1;
+                padding: 14px 20px; /* Spacious padding */
+                border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
+                font-weight: 300;
+                color: #000000; /* Dark text for readability */
+                vertical-align: middle; /* Align text vertically */
             }
 
-            /* Button Styles for Table */
+            .table tbody tr:hover {
+                background-color: #e9ecef; /* Light gray background on hover */
+                transition: background-color 0.3s ease; /* Smooth transition */
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .table {
+                    font-size: 0.9rem; /* Smaller font for smaller screens */
+                }
+            }
+
+
+        /* Button Styles for Table */
             .btn-primary, .btn-danger {
                 font-size: 0.9rem;
                 padding: 6px 12px;
                 border-radius: 20px;
                 transition: transform 0.3s;
+                margin-bottom: 6px;
             }
 
             .btn-primary:hover {
@@ -157,7 +178,7 @@
             }
 
             .modal-header {
-                background-color: #1e8c8d;
+                background-color: #849191;
                 color: white;
                 margin-bottom: 10px;
             }
@@ -181,8 +202,8 @@
             }
 
             .form-control:focus {
-                border-color: #1e8c8d;
-                box-shadow: 0 0 5px rgba(30, 140, 141, 0.3);
+                border-color: #adb6ad;
+                box-shadow: 0 0 5px rgba(60, 77, 78, 0.3);
             }
 
             @media (max-width: 768px) {
@@ -215,7 +236,7 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Main
+                    <a class="nav-link" href="/main_admin">Main
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -349,7 +370,7 @@
                 <th>Godzina zakończenia</th>
                 <th>ID centrali</th>
                 <th>ID trasy</th>
-                <th>Akcje</th>
+                <th>Możliwe akcje</th>
             </tr>
             </thead>
             <!-- Table body -->
