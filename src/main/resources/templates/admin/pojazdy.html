@@ -434,7 +434,7 @@
       var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
 
       $.ajax({
-        url: '/saveLinie',
+        url: '/savePojazdy',
         type: 'POST',
         data: $(this).serialize(),
         beforeSend: function(xhr) {
@@ -479,7 +479,7 @@
 
       // Send AJAX request
       $.ajax({
-        url: '/editLinie', // Adjust the endpoint as needed
+        url: '/editPojazdy', // Adjust the endpoint as needed
         type: 'POST',
         data: $(this).serialize(),
         beforeSend: function(xhr) {
