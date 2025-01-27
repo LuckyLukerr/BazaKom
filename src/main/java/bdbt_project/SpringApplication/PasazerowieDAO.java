@@ -46,7 +46,7 @@ public class PasazerowieDAO {
     }
 
     public void updatePasazerowie(Pasazerowie pasazerowie){
-        String sql = "UPDATE pasazerowie SET imie=:imie, nazwisko=:nazwisko, nr_telefonu=:nr_telefonu, email=:email, haslo=:haslo, login=:login WHERE id_pasazera=:id_pasazera";
+        String sql = "UPDATE pasazerowie SET imie=:imie, nazwisko=:nazwisko, nr_telefonu=:nr_telefonu, email=:email, login=:login, haslo=:haslo WHERE id_pasazera=:id_pasazera";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(pasazerowie);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql, param);
