@@ -5,11 +5,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -35,10 +36,26 @@ public class AppController implements WebMvcConfigurer {
     @RequestMapping("/bilety")
     public String viewBilety(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
         List<Bilety> listBilety = daoBilety.list(username);
         model.addAttribute("listBilety", listBilety);
         return "user/bilety";
+    }
+
+    @PostMapping("/kupBilety")
+    public String saveBilety(@RequestParam String rodzaj_biletu,
+                             @RequestParam int id_centrali) {
+        int id_pasazera;
+        Bilety nowyBilet = new Bilety();
+        nowyBilet.setRodzaj_biletu(rodzaj_biletu);
+        nowyBilet.setId_centrali(id_centrali);
+        nowyBilet.setData_kupienia(LocalDateTime.now());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        id_pasazera= daoBilety.findIdPasazeraByLogin(username);
+        nowyBilet.setId_pasazera(id_pasazera);
+
+        daoBilety.saveBilety(nowyBilet);
+
+        return "redirect:/main_user";
     }
 
     //LINIE

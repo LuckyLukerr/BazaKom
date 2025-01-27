@@ -29,6 +29,16 @@ public class BiletyDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public int findIdPasazeraByLogin(String login) {
+        String sql = "SELECT id_pasazera FROM pasazerowie WHERE login = ?";
+
+        // Wykonujemy zapytanie i zwracamy id_pasazera
+        Integer idPasazera = jdbcTemplate.queryForObject(sql, new Object[]{login}, Integer.class);
+
+        // Jeśli nie znaleziono, zwracamy -1 lub możemy rzucić wyjątek
+        return idPasazera;
+    }
+
     public List<Bilety> list(String id_pasazera) {
         String sql = "select bilety.*, (current_date - bilety.data_kupienia) as time_diff from bilety join pasazerowie on bilety.id_pasazera = pasazerowie.id_pasazera where pasazerowie.login=:id_pasazera";
 
@@ -51,56 +61,47 @@ public class BiletyDAO {
             if ("15 Minutes".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 15) {
                     bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
             } else if ("75 Minutes".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 75) {
                     bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
             } else if ("1 Day".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 1440) {
                     bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
             } else if ("3 Days".equals(bilety.getRodzaj_biletu())) {
                     if (minutesDiff <= 4320) {
                         bilety.setActive(true);
-                        break;
                     } else {
                         bilety.setActive(false);
                     }
             } else if ("15 Days".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 21600) {
                     bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
             } else if ("30 Days".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 43200) {
                     bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
             } else if ("45 Days".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 64800) {
-                    bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
             } else if ("60 Days".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 86400) {
                     bilety.setActive(true);
-                    break;
                 } else {
                     bilety.setActive(false);
                 }
@@ -110,10 +111,13 @@ public class BiletyDAO {
         }
         return biletyList;
     }
+
     public void saveBilety(Bilety bilety) {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("bilety").usingGeneratedKeyColumns("id_biletu").usingColumns("rodzaj_biletu","id_centrali","id_pasazera");
+        insertActor.withTableName("bilety").usingGeneratedKeyColumns("id_biletu").usingColumns("rodzaj_biletu","id_centrali","id_pasazera","data_kupienia");
 
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(bilety);
+        insertActor.execute(param);
     }
 
     public Bilety get(int id_biletu) {

@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <title>Main User Page</title>
 
   <!-- Bootstrap CSS -->
@@ -155,28 +157,24 @@
       background-color: #27c327;
     }
 
-    a {
+    a.btn-yellow {
       width: 100%;
       padding: 10px; /* Adjusted padding for smaller buttons */
       font-size: 1.1rem;
       font-weight: 700;
       border-radius: 8px;
+      text-align: center;
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
-    }
-    a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    a.btn-yellow {
       background-color: #e5cd55;
       color: #000000;
     }
 
     a.btn-yellow:hover {
       background-color: #ddbb13;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15)
     }
 
     /* Light Blue buttons (Second column) */
@@ -268,30 +266,116 @@
     </thead>
     <tbody>
     <tr>
-      <td><button class="btn btn-green">15 minutes</button></td>
-      <td><button class="btn btn-blue">15 days</button></td>
+      <td><button class="btn btn-green" data-rodzaj-biletu="15 Minutes">15 minutes</button></td>
+      <td><button class="btn btn-blue" data-rodzaj-biletu="15 Days">15 days</button></td>
     </tr>
     <tr>
-      <td><button class="btn btn-green">75 minutes</button></td>
-      <td><button class="btn btn-blue">30 days</button></td>
+      <td><button class="btn btn-green" data-rodzaj-biletu="75 Minutes">75 minutes</button></td>
+      <td><button class="btn btn-blue" data-rodzaj-biletu="30 Days">30 days</button></td>
     </tr>
     <tr>
-      <td><button class="btn btn-green">1 day</button></td>
-      <td><button class="btn btn-blue">45 days</button></td>
+      <td><button class="btn btn-green" data-rodzaj-biletu="1 Day">1 day</button></td>
+      <td><button class="btn btn-blue" data-rodzaj-biletu="45 Days">45 days</button></td>
     </tr>
     <tr>
-      <td><button class="btn btn-green">3 days</button></td>
-      <td><button class="btn btn-blue">60 days</button></td>
+      <td><button class="btn btn-green" data-rodzaj-biletu="3 Days">3 days</button></td>
+      <td><button class="btn btn-blue" data-rodzaj-biletu="60 Days">60 days</button></td>
     </tr>
-    <td><a href="/bilety" class="btn btn-yellow">View my tickets</a></td>
+    <tr><td colspan="2"><a href="/bilety" class="btn btn-yellow">View my tickets</a></td></tr>
     </tbody>
   </table>
 </div>
 
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Nasłuchujemy kliknięcie na każdy guzik
+    $('.btn-green').on('click', function(event) {
+      event.preventDefault();
 
+      // Pobieramy rodzaj biletu z atrybutu data-rodzaj-biletu
+      var rodzajBiletu = $(this).data('rodzaj-biletu');
+
+      // Zakładając, że id_centrali jest zawsze 1
+      var idCentrali = 1;
+      // Przygotowanie danych do wysłania
+      var dataToSend = {
+        rodzaj_biletu: rodzajBiletu,
+        id_centrali: idCentrali,
+      };
+
+      // Pobieranie CSRF tokenu z meta tagów
+      var csrfToken = $('meta[name="_csrf"]').attr('content');
+      var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+      // Wykonanie zapytania AJAX
+      $.ajax({
+        url: '/kupBilety',  // Ścieżka do endpointa
+        type: 'POST',
+        data: dataToSend,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader(csrfHeader, csrfToken);  // Dodanie CSRF tokenu do nagłówka
+        },
+        success: function(response) {
+          // Obsługa odpowiedzi po sukcesie (np. zamknięcie modal i przeładowanie strony)
+          alert('Bilet zapisany pomyślnie!');
+          location.reload();  // Opcjonalnie - przeładowanie strony po zapisaniu biletu
+        },
+        error: function(error) {
+          console.error('Error:', error);  // Obsługa błędów
+        }
+      });
+    });
+    $('.btn-blue').on('click', function(event) {
+      event.preventDefault();
+
+      // Pobieramy rodzaj biletu z atrybutu data-rodzaj-biletu
+      var rodzajBiletu = $(this).data('rodzaj-biletu');
+
+      // Zakładając, że id_centrali jest zawsze 1
+      var idCentrali = 1;
+
+      // Pobieramy bieżącą datę i godzinę (data systemowa)
+      var dataKupienia = new Date().toISOString().slice(0, 19).replace('T', ' ');  // Format: 'yyyy-MM-dd HH:mm:ss'
+
+      // Przygotowanie danych do wysłania
+      var dataToSend = {
+        rodzaj_biletu: rodzajBiletu,
+        id_centrali: idCentrali,
+        data_kupienia: dataKupienia,
+      };
+
+      // Pobieranie CSRF tokenu z meta tagów
+      var csrfToken = $('meta[name="_csrf"]').attr('content');
+      var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+      if (!csrfToken || !csrfHeader) {
+        console.error("CSRF token or header is missing");
+        return;
+      }
+
+      // Wykonanie zapytania AJAX
+      $.ajax({
+        url: '/kupBilety',  // Ścieżka do endpointa
+        type: 'POST',
+        data: dataToSend,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader(csrfHeader, csrfToken);  // Dodanie CSRF tokenu do nagłówka
+        },
+        success: function(response) {
+          // Obsługa odpowiedzi po sukcesie (np. zamknięcie modal i przeładowanie strony)
+          alert('Bilet zapisany pomyślnie!');
+          location.reload();  // Opcjonalnie - przeładowanie strony po zapisaniu biletu
+        },
+        error: function(error) {
+          console.error('Error:', error);  // Obsługa błędów
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
