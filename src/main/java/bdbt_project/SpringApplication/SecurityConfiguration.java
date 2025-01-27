@@ -46,7 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/savePasazerowie").permitAll()
                 .antMatchers("/main").authenticated()
                 .antMatchers("/main_admin").access("hasRole('ADMIN')")
+                .antMatchers("/linie").access("hasRole('ADMIN')")
+                .antMatchers("/pasazerowie").access("hasRole('ADMIN')")
+                .antMatchers("/pojazdy").access("hasRole('ADMIN')")
                 .antMatchers("/main_user").access("hasRole('USER')")
+                .antMatchers("/linie_user").access("hasRole('USER')")
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
