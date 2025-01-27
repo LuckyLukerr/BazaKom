@@ -53,6 +53,10 @@ public class PasazerowieDAO {
     }
 
     public void deletePasazerowie(int id_pasazera){
+
+        String sqlBilety = "DELETE FROM bilety WHERE id_pasazera = :id_pasazera";
+        jdbcTemplate.update(sqlBilety, id_pasazera);
+
         String sql = "DELETE FROM pasazerowie WHERE id_pasazera=:id_pasazera";
         jdbcTemplate.update(sql, id_pasazera);
     }
