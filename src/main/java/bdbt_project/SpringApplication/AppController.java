@@ -1,6 +1,7 @@
 package bdbt_project.SpringApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,18 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/main_user").setViewName("user/main_user");
     }
 
+    //BILETY
+    @Autowired
+    private BiletyDAO daoBilety;
+    @RequestMapping("/bilety")
+    public String viewBilety(Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        List<Bilety> listBilety = daoBilety.list(username);
+        model.addAttribute("listBilety", listBilety);
+        return "user/bilety";
+    }
+
     //LINIE
     @Autowired
     private LinieDAO daoLinie;
@@ -36,6 +49,12 @@ public class AppController implements WebMvcConfigurer {
         List<Linie> listLinie = daoLinie.list();
         model.addAttribute("listLinie", listLinie);
         return "admin/linie";
+    }
+    @RequestMapping("/linie_user")
+    public String viewLinieUser(Model model) {
+        List<Linie> listLinie = daoLinie.list();
+        model.addAttribute("listLinie", listLinie);
+        return "user/linie_user";
     }
     @RequestMapping(value = "/saveLinie", method = RequestMethod.POST)
     public String saveLinie(@ModelAttribute("linie") Linie linie) {

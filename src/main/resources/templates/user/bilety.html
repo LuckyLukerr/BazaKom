@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View  Transport Lines</title>
+  <title>View My Tickets</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     <meta charset="UTF-8"/>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title>View Transport Lines</title>
+    <title>View My Tickets</title>
 
     <!-- Bootstrap CSS -->
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
@@ -107,6 +107,16 @@
       .btn-success:hover {
         background-color: #127a7a;
         transform: scale(1.05);
+      }
+
+      .bg-success {
+        background-color: #28a745 !important; /* Zielony */
+        color: white;
+      }
+
+      .bg-danger {
+        background-color: #dc3545 !important; /* Czerwony */
+        color: white;
       }
 
       .go-back-btn {
@@ -285,31 +295,24 @@
 
 <!-- Main Content -->
 <div class="container text-center">
-  <h1>Lines</h1>
+  <h1>My tickets</h1>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
       <tr>
-        <th>Line ID</th>
-        <th>Line Name</th>
-        <th>Line Type</th>
-        <th>Operating Days</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Central ID</th>
-        <th>Route ID</th>
+        <th>Ticket Type</th>
+        <th>Buying Date</th>
+        <th>Is active?</th>
       </tr>
       </thead>
       <tbody>
-      <tr th:each="Linie : ${listLinie}">
-        <td th:text="${Linie.id_lini}">Line ID</td>
-        <td th:text="${Linie.nazwa_linii}">Line Name</td>
-        <td th:text="${Linie.typ_linii}">Line Type</td>
-        <td th:text="${Linie.dni_dzialania}">Operating Days</td>
-        <td th:text="${Linie.godzina_rozpoczecia}">Start Time</td>
-        <td th:text="${Linie.godzina_zakonczenia}">End Time</td>
-        <td th:text="${Linie.id_centrali}">Central ID</td>
-        <td th:text="${Linie.id_trasy}">Route ID</td>
+      <tr th:each="Bilety : ${listBilety}">
+        <td th:text="${Bilety.rodzaj_biletu}">Ticket type</td>
+        <td th:text="${Bilety.formattedDataKupienia}">Buying date</td>
+        <td th:text="${Bilety.active ? 'Yes' : 'No'}"
+            th:class="${Bilety.active ? 'bg-success' : 'bg-danger'}">></td>
+
+
       </tr>
       </tbody>
     </table>
