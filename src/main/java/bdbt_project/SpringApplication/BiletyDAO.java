@@ -96,6 +96,7 @@ public class BiletyDAO {
                 }
             } else if ("45 Days".equals(bilety.getRodzaj_biletu())) {
                 if (minutesDiff <= 64800) {
+                    bilety.setActive(true);
                 } else {
                     bilety.setActive(false);
                 }
