@@ -33,7 +33,7 @@ public class PojazdyDAO {
 
     public void savePojazdy(Pojazdy pojazdy) {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("pojazdy").usingGeneratedKeyColumns("id_pojazdu").usingColumns("vin", "data_waznosci_przegladu", "rodzaj_paliwa", "liczba_miejsc_siedzacych", "rodzaj_pojazdu");
+        insertActor.withTableName("pojazdy").usingGeneratedKeyColumns("id_pojazdu").usingColumns("vin", "data_waznosci_przegladu", "rodzaj_paliwa", "liczba_miejsc_siedzacych", "rodzaj_pojazdu", "id_centrali");
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(pojazdy);
         insertActor.execute(param);
