@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Transport Lines</title>
+    <title>Manage Passengers</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
         <meta charset="UTF-8"/>
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-        <title>Manage Transport Lines</title>
+        <title>Manage Vehicles</title>
 
         <!-- Bootstrap CSS -->
         <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
@@ -109,24 +109,6 @@
                 transform: scale(1.05);
             }
 
-            .go-back-btn {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 1000;
-                background-color: #1e8c8d;
-                border-radius: 30px;
-                color: white;
-                font-size: 1.1rem;
-                padding: 10px 30px;
-                border: none;
-                transition: background-color 0.3s, transform 0.3s;
-            }
-            .go-back-btn:hover {
-                background-color: #127a7a;
-                transform: scale(1.05);
-            }
-
             /* Space between button and table */
             .add-button {
                 margin-bottom: 20px; /* Add margin between button and table */
@@ -144,7 +126,7 @@
             .table th {
                 background-color: #676c71; /* Dark header for contrast */
                 color: #ffffff; /* White text for visibility */
-                font-weight: 900;
+                font-weight: bold;
                 padding: 16px;
                 text-transform: uppercase; /* Uniform look for headers */
                 border-bottom: 2px solid #dee2e6; /* Add border below header */
@@ -153,7 +135,7 @@
             .table td {
                 padding: 14px 20px; /* Spacious padding */
                 border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
-                font-weight: 900;
+                font-weight: 300;
                 color: #000000; /* Dark text for readability */
                 vertical-align: middle; /* Align text vertically */
             }
@@ -162,25 +144,7 @@
                 background-color: #e9ecef; /* Light gray background on hover */
                 transition: background-color 0.3s ease; /* Smooth transition */
             }
-            .go-back-button {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 15px;
-                font-size: 16px;
-                cursor: pointer;
-                text-decoration: none;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                transition: background-color 0.3s ease;
-            }
 
-            .go-back-button:hover {
-                background-color: #0056b3;
-            }
             /* Responsive adjustments */
             @media (max-width: 768px) {
                 .table {
@@ -241,6 +205,24 @@
                 border-color: #adb6ad;
                 box-shadow: 0 0 5px rgba(60, 77, 78, 0.3);
             }
+            .go-back-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+                background-color: #1e8c8d;
+                border-radius: 30px;
+                color: white;
+                font-size: 1.1rem;
+                padding: 10px 30px;
+                border: none;
+                transition: background-color 0.3s, transform 0.3s;
+            }
+            .go-back-btn:hover {
+                background-color: #127a7a;
+                transform: scale(1.05);
+            }
+
 
             @media (max-width: 768px) {
                 h1 {
@@ -257,37 +239,44 @@
                 }
             }
         </style>
-</head>
+
+    </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand">Warsaw Public Transport Center</a>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/main_admin">Main
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <div class="d-flex align-items-center">
-                    <a class="nav-link" th:inline="text" style="color:lightskyblue;">
-                        You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/main_admin">Main
+                        <span class="sr-only">(current)</span>
                     </a>
-                    <form method="post" th:action="@{/index}" class="ml-3">
-                        <button class="btn-custom" type="submit" onclick="successfullyLogout()">Logout</button>
-                    </form>
-                </div>
-            </li>
-        </ul>
+                </li>
+
+                <li class="nav-item">
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link" th:inline="text" style="color:lightskyblue;">
+                            You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
+                        </a>
+                        <form method="post" th:action="@{/index}" class="ml-3">
+                            <button class="btn-custom" type="submit" onclick="successfullyLogout()">Logout</button>
+                        </form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
     </div>
 </nav>
 
-<!-- Add New Entry Modal -->
+<!-- Add New Passenger Modal -->
 <div class="modal fade" id="addNewEntryModal" tabindex="-1" role="dialog" aria-labelledby="addNewEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addNewEntryModalLabel">Add a New Transport Line</h5>
+                <h5 class="modal-title" id="addNewEntryModalLabel">Add New Passenger</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -295,32 +284,28 @@
             <div class="modal-body">
                 <form id="addNewEntryForm">
                     <div class="form-group">
-                        <label for="nazwa_linii">Line Name</label>
-                        <input type="text" class="form-control" id="nazwa_linii" name="nazwa_linii" required>
+                        <label for="imie">First Name</label>
+                        <input type="text" class="form-control" id="imie" name="imie" required>
                     </div>
                     <div class="form-group">
-                        <label for="typ_linii">Line Type</label>
-                        <input type="text" class="form-control" id="typ_linii" name="typ_linii" required>
+                        <label for="nazwisko">Last Name</label>
+                        <input type="text" class="form-control" id="nazwisko" name="nazwisko" required>
                     </div>
                     <div class="form-group">
-                        <label for="dni_dzialania">Operating Days</label>
-                        <input type="text" class="form-control" id="dni_dzialania" name="dni_dzialania" required>
+                        <label for="nr_telefonu">Phone Number</label>
+                        <input type="text" class="form-control" id="nr_telefonu" name="nr_telefonu" required>
                     </div>
                     <div class="form-group">
-                        <label for="godzina_rozpoczecia">Start Time</label>
-                        <input type="text" class="form-control" id="godzina_rozpoczecia" name="godzina_rozpoczecia" required>
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="godzina_zakonczenia">End Time</label>
-                        <input type="text" class="form-control" id="godzina_zakonczenia" name="godzina_zakonczenia" required>
+                        <label for="login">Username</label>
+                        <input type="text" class="form-control" id="login" name="login" required>
                     </div>
                     <div class="form-group">
-                        <label for="id_centrali">Central ID</label>
-                        <input type="text" class="form-control" id="id_centrali" name="id_centrali" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_trasy">Route ID</label>
-                        <input type="text" class="form-control" id="id_trasy" name="id_trasy" required>
+                        <label for="haslo">Password</label>
+                        <input type="password" class="form-control" id="haslo" name="haslo" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
@@ -328,97 +313,92 @@
         </div>
     </div>
 </div>
-
-<!-- Edit Entry Modal -->
 <div class="modal fade" id="editEntryModal" tabindex="-1" role="dialog" aria-labelledby="editEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEntryModalLabel">Edit Line</h5>
+                <h5 class="modal-title" id="editEntryModalLabel">Edit Passenger Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form id="editEntryForm">
-                    <input type="hidden" id="edit_id_lini" name="id_lini"/>
+                    <input type="hidden" id="edit_id_pasazera" name="id_pasazera"/>
                     <div class="form-group">
-                        <label for="edit_nazwa_linii">Line Name</label>
-                        <input type="text" class="form-control" id="edit_nazwa_linii" name="nazwa_linii" required>
+                        <label for="edit_imie">First Name</label>
+                        <input type="text" class="form-control" id="edit_imie" name="imie" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_typ_linii">Line Type</label>
-                        <input type="text" class="form-control" id="edit_typ_linii" name="typ_linii" required>
+                        <label for="edit_nazwisko">Last Name</label>
+                        <input type="text" class="form-control" id="edit_nazwisko" name="nazwisko" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_dni_dzialania">Operating Days</label>
-                        <input type="text" class="form-control" id="edit_dni_dzialania" name="dni_dzialania" required>
+                        <label for="edit_nr_telefonu">Phone Number</label>
+                        <input type="text" class="form-control" id="edit_nr_telefonu" name="nr_telefonu" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_godzina_rozpoczecia">Start Time</label>
-                        <input type="text" class="form-control" id="edit_godzina_rozpoczecia" name="godzina_rozpoczecia" required>
+                        <label for="edit_email">Email</label>
+                        <input type="text" class="form-control" id="edit_email" name="emil" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_godzina_zakonczenia">End Time</label>
-                        <input type="text" class="form-control" id="edit_godzina_zakonczenia" name="godzina_zakonczenia" required>
+                        <label for="edit_login">Username</label>
+                        <input type="text" class="form-control" id="edit_login" name="login" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_id_centrali">Central ID</label>
-                        <input type="text" class="form-control" id="edit_id_centrali" name="id_centrali" required>
+                        <label for="edit_password">Password</label>
+                        <input type="text" class="form-control" id="edit_password" name="password" required>
                     </div>
-                    <div class="form-group">
-                        <label for="edit_id_trasy">Route ID</label>
-                        <input type="text" class="form-control" id="edit_id_trasy" name="id_trasy" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Main Content -->
 <div class="container text-center">
-    <h1>Lines</h1>
-    <a href="#" class="btn btn-success add-button" data-toggle="modal" data-target="#addNewEntryModal">Add New Line</a>
+    <h1>Passengers</h1>
+
+    <!-- Table -->
     <div class="table-responsive">
         <table class="table table-bordered">
+            <!-- Table header -->
             <thead class="thead-dark">
             <tr>
-                <th>Line ID</th>
-                <th>Line Name</th>
-                <th>Line Type</th>
-                <th>Operating Days</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Central ID</th>
-                <th>Route ID</th>
+                <th>Passenger ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Password</th>
                 <th>Actions</th>
             </tr>
             </thead>
+            <!-- Table body -->
             <tbody>
-            <tr th:each="Linie : ${listLinie}">
-                <td th:text="${Linie.id_lini}">Line ID</td>
-                <td th:text="${Linie.nazwa_linii}">Line Name</td>
-                <td th:text="${Linie.typ_linii}">Line Type</td>
-                <td th:text="${Linie.dni_dzialania}">Operating Days</td>
-                <td th:text="${Linie.godzina_rozpoczecia}">Start Time</td>
-                <td th:text="${Linie.godzina_zakonczenia}">End Time</td>
-                <td th:text="${Linie.id_centrali}">Central ID</td>
-                <td th:text="${Linie.id_trasy}">Route ID</td>
+            <tr th:each="Pasazerowie : ${listPasazerowie}">
+                <td th:text="${Pasazerowie.id_pasazera}">Passenger ID</td>
+                <td th:text="${Pasazerowie.imie}">First Name</td>
+                <td th:text="${Pasazerowie.nazwisko}">Last Name</td>
+                <td th:text="${Pasazerowie.nr_telefonu}">Phone Number</td>
+                <td th:text="${Pasazerowie.email}">Email</td>
+                <td th:text="${Pasazerowie.login}">Username</td>
+                <td th:text="${Pasazerowie.haslo}">Password</td>
                 <td>
                     <button class="btn btn-primary btn-sm edit-button"
-                            th:data-id-lini="${Linie.id_lini}"
-                            th:data-nazwa-linii="${Linie.nazwa_linii}"
-                            th:data-typ-linii="${Linie.typ_linii}"
-                            th:data-dni-dzialania="${Linie.dni_dzialania}"
-                            th:data-godzina-rozpoczecia="${Linie.godzina_rozpoczecia}"
-                            th:data-godzina-zakonczenia="${Linie.godzina_zakonczenia}"
-                            th:data-id-centrali="${Linie.id_centrali}"
-                            th:data-id-trasy="${Linie.id_trasy}"
-                            data-toggle="modal" data-target="#editEntryModal">Edit</button>
-                    <a th:href="@{/linie/delete/{id_lini}(id_lini=${Linie.id_lini})}"
-                       class="btn btn-danger btn-sm">Delete</a>
+                            th:data-id-lini="${Pasazerowie.id_pojazdu}"
+                            th:data-nazwa-linii="${Pasazerowie.imie}"
+                            th:data-typ-linii="${Pasazerowie.nazwisko}"
+                            th:data-dni-dzialania="${Pasazerowie.nr_telefonu}"
+                            th:data-godzina-rozpoczecia="${Pasazerowie.email}"
+                            th:data-godzina-zakonczenia="${Pasazerowie.login}"
+                            th:data-id-centrali="${Pasazerowie.haslo}"
+                            data-toggle="modal"
+                            data-target="#editEntryModal">
+                        Edit
+                    </button>
+                    <a th:href="@{'/deletePasazerowie/' + ${Pasazerowie.id_pojazdu}}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
             </tbody>
@@ -438,9 +418,82 @@
         }
     }
 </script>
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Scripts -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('#addNewEntryForm').on('submit', function(event) {
+            event.preventDefault();
+
+            // Get CSRF token from the meta tag
+            var csrfToken = $('meta[name="_csrf"]').attr('content');
+            var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+            $.ajax({
+                url: '/saveLinie',
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#addNewEntryModal').modal('hide');
+                    location.reload(); // Reload the page to see the new entry
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+        // Handle Edit button click
+        $('.edit-button').on('click', function() {
+            const idPojazdu = $(this).data('id-pojazdu')
+            const vin = $(this).data('vin');
+            const rodzajPojazdu = $(this).data('rodzaj-pojazdu');
+            const dataWaznosciPrzegladu = $(this).data('data-waznosci-przegladu');
+            const rodzajPaliwa = $(this).data('rodzaj-paliwa');
+            const liczbaMiejscSiedzacych = $(this).data('liczba-miejsc-siedzacych');
+            const idCentrali = $(this).data('id-centrali');
+
+            // Populate the modal with the data
+            $('#edit_id_pojazdu').val(idPojazdu);
+            $('#edit_vin').val(vin);
+            $('#edit_rodzaj_pojazdu').val(rodzajPojazdu);
+            $('#edit_data_waznosci_przegladu').val(dataWaznosciPrzegladu);
+            $('#edit_rodzaj_paliwa').val(rodzajPaliwa);
+            $('#edit_liczba_miejsc_siedzacych').val(liczbaMiejscSiedzacych);
+            $('#edit_id_centrali').val(idCentrali);
+        });
+
+        // Handle form submission
+        $('#editEntryForm').on('submit', function(event) {
+            event.preventDefault();
+
+            // Get CSRF token
+            const csrfToken = $('meta[name="_csrf"]').attr('content');
+            const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+            // Send AJAX request
+            $.ajax({
+                url: '/editLinie', // Adjust the endpoint as needed
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#editEntryModal').modal('hide');
+                    location.reload(); // Reload to show updated data
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

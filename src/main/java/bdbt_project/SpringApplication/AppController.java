@@ -3,10 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,6 +20,8 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/adresy").setViewName("adresy");
         registry.addViewController("/linie").setViewName("admin/linie");
+        registry.addViewController("/pojazdy").setViewName("admin/pojazdy");
+        registry.addViewController("/pasazerowie").setViewName("admin/pasazerowie");
 
         registry.addViewController("/main_admin").setViewName("admin/main_admin");
         registry.addViewController("/main_user").setViewName("user/main_user");
@@ -122,4 +121,5 @@ public class AppController implements WebMvcConfigurer {
     public String showUserPage(Model model) {
         return "user/main_user";
     }
+
 }

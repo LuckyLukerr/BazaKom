@@ -56,4 +56,5 @@ public class PasazerowieDAO {
         String sql = "DELETE FROM pasazerowie WHERE id_pasazera=:id_pasazera";
         jdbcTemplate.update(sql, id_pasazera);
     }
+
 }

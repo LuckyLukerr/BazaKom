@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Vehicles</title>
+  <title>Manage Transport Lines</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -205,6 +205,24 @@
         border-color: #adb6ad;
         box-shadow: 0 0 5px rgba(60, 77, 78, 0.3);
       }
+      .go-back-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: #1e8c8d;
+        border-radius: 30px;
+        color: white;
+        font-size: 1.1rem;
+        padding: 10px 30px;
+        border: none;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      .go-back-btn:hover {
+        background-color: #127a7a;
+        transform: scale(1.05);
+      }
+
 
       @media (max-width: 768px) {
         h1 {
@@ -270,26 +288,26 @@
             <input type="text" class="form-control" id="vin" name="vin" required>
           </div>
           <div class="form-group">
-            <label for="rodzaj_pojazdu">Rodzaj pojazdu</label>
+            <label for="rodzaj_pojazdu">Vehicle type</label>
             <input type="text" class="form-control" id="rodzaj_pojazdu" name="rodzaj_pojazdu" required>
           </div>
           <div class="form-group">
-            <label for="Data_waznosci_przegladu">Data ważności przeglądu</label>
+            <label for="Data_waznosci_przegladu">Inspection expiry date</label>
             <input type="text" class="form-control" id="Data_waznosci_przegladu" name="Data_waznosci_przegladu" required>
           </div>
           <div class="form-group">
-            <label for="rodzaj_paliwa">Rodzaj paliwa</label>
+            <label for="rodzaj_paliwa">Fuel type</label>
             <input type="text" class="form-control" id="rodzaj_paliwa" name="rodzaj_paliwa" required>
           </div>
           <div class="form-group">
-            <label for="liczba_miejsc_siedzacych">Liczba miejsc siedzących</label>
+            <label for="liczba_miejsc_siedzacych">Number of seats</label>
             <input type="text" class="form-control" id="liczba_miejsc_siedzacych" name="liczba_miejsc_siedzacych" required>
           </div>
           <div class="form-group">
-            <label for="id_centrali">ID centrali</label>
+            <label for="id_centrali">Central ID</label>
             <input type="text" class="form-control" id="id_centrali" name="id_centrali" required>
           </div>
-          <button type="submit" class="btn btn-primary">Zapisz</button>
+          <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>
     </div>
@@ -299,7 +317,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editEntryModalLabel">Edytuj linię</h5>
+        <h5 class="modal-title" id="editEntryModalLabel">Edit Vehicle Info</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -312,37 +330,35 @@
             <input type="text" class="form-control" id="edit_vin" name="vin" required>
           </div>
           <div class="form-group">
-            <label for="edit_rodzaj_pojazdu">Rodzaj pojazdu</label>
+            <label for="edit_rodzaj_pojazdu">Vehicle Type</label>
             <input type="text" class="form-control" id="edit_rodzaj_pojazdu" name="rodzaj_pojazdu" required>
           </div>
           <div class="form-group">
-            <label for="edit_data_waznosci_przegladu">Data ważności przeglądu</label>
+            <label for="edit_data_waznosci_przegladu">Inspection Expiry Date</label>
             <input type="text" class="form-control" id="edit_data_waznosci_przegladu" name="data_waznosci_przegladu" required>
           </div>
           <div class="form-group">
-            <label for="edit_rodzaj_paliwa">Rodzaj paliwa</label>
+            <label for="edit_rodzaj_paliwa">Fuel Type</label>
             <input type="text" class="form-control" id="edit_rodzaj_paliwa" name="rodzaj_paliwa" required>
           </div>
           <div class="form-group">
-            <label for="edit_liczba_miejsc_siedzacych">Liczba miejsc siedzących</label>
+            <label for="edit_liczba_miejsc_siedzacych">Number of seats</label>
             <input type="text" class="form-control" id="edit_liczba_miejsc_siedzacych" name="liczba_miejsc_siedzacych" required>
           </div>
           <div class="form-group">
-            <label for="edit_id_centrali">ID centrali</label>
+            <label for="edit_id_centrali">Central ID</label>
             <input type="text" class="form-control" id="edit_id_centrali" name="id_centrali" required>
           </div>
-          <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-<div class="container text-center">
-  <h1>Linie</h1>
 
-  <!--  <a href="/new" class="btn btn-success add-button">Dodaj nowy adres</a>-->
-  <a href="#" class="btn btn-success add-button" data-toggle="modal"
-     data-target="#addNewEntryModal">Dodaj nowy pojazd</a>
+<div class="container text-center">
+  <h1>Vehicles</h1>
+  <a href="#" class="btn btn-success add-button" data-toggle="modal" data-target="#addNewEntryModal">Add new vehicle</a>
 
   <!-- Table -->
   <div class="table-responsive">
@@ -350,26 +366,26 @@
       <!-- Table header -->
       <thead class="thead-dark">
       <tr>
-        <th>ID pojazdu</th>
+        <th>Vehicle ID</th>
         <th>VIN</th>
-        <th>Rodzaj pojazdu</th>
-        <th>Data ważności przeglądu</th>
-        <th>Rodzaj paliwa</th>
-        <th>Liczba miejsc siedzących</th>
-        <th>ID centrali</th>
-        <th>Możliwe akcje</th>
+        <th>Vehicle Type</th>
+        <th>Inspection Expiry Date</th>
+        <th>Fuel Type</th>
+        <th>Number of seats</th>
+        <th>Central ID</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <!-- Table body -->
       <tbody>
       <tr th:each="Pojazdy : ${listPojazdy}">
-        <td th:text="${Pojazdy.id_pojazdu}">ID pojazdu</td>
+        <td th:text="${Pojazdy.id_pojazdu}">Vehicle ID</td>
         <td th:text="${Pojazdy.vin}">VIN</td>
-        <td th:text="${Pojazdy.rodzaj_pojazdu}">Rodzaj pojazdu</td>
-        <td th:text="${Pojazdy.data_waznosci_przegladu}">Data ważności przeglądu</td>
-        <td th:text="${Pojazdy.rodzaj_paliwa}">Rodzaj paliwa</td>
-        <td th:text="${Pojazdy.liczba_miejsc_siedzacych}">Liczba miejsc siedzących</td>
-        <td th:text="${Linie.id_centrali}">ID centrali</td>
+        <td th:text="${Pojazdy.rodzaj_pojazdu}">Vehicle Type</td>
+        <td th:text="${Pojazdy.data_waznosci_przegladu}">Inspection Expiry Date</td>
+        <td th:text="${Pojazdy.rodzaj_paliwa}">Fuel Type</td>
+        <td th:text="${Pojazdy.liczba_miejsc_siedzacych}">Number of seats</td>
+        <td th:text="${Pojazdy.id_centrali}">Central ID</td>
         <td>
           <button class="btn btn-primary btn-sm edit-button"
                   th:data-id-lini="${Pojazdy.id_pojazdu}"
@@ -378,18 +394,31 @@
                   th:data-dni-dzialania="${Pojazdy.data_waznosci_przegladu}"
                   th:data-godzina-rozpoczecia="${Pojazdy.rodzaj_paliwa}"
                   th:data-godzina-zakonczenia="${Pojazdy.liczba_miejsc_siedzacych}"
-                  th:data-id-centrali="${Linie.id_centrali}"
+                  th:data-id-centrali="${Pojazdy.id_centrali}"
                   data-toggle="modal"
                   data-target="#editEntryModal">
-            Edytuj
+            Edit
           </button>
-          <a th:href="@{'/deletePojazdy/' + ${Linie.id_pojazdu}}" class="btn btn-danger btn-sm">Usuń</a>
+          <a th:href="@{'/deletePojazdy/' + ${Pojazdy.id_pojazdu}}" class="btn btn-danger btn-sm">Delete</a>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<a href="/main_admin" class="go-back-btn" onclick="goBack(event)">Go Back</a>
+
+<script>
+  function goBack(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    if (window.history.length > 1) {
+      window.history.back(); // Use the browser's back functionality
+    } else {
+      window.location.href = "/main_admin"; // Fallback to the href if no history
+    }
+  }
+</script>
 
 <!-- Scripts -->
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
