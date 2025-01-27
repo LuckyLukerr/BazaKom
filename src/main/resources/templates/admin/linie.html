@@ -288,30 +288,35 @@
                         <label for="typ_linii">Line type</label>
                         <select class="form-control" id="typ_linii" name="typ_linii" required>
                         <option value="" disabled selected>Choose type</option>
-                        <option value="Metro">Metro</option>
-                        <option value="Tramwaj">Tramwaj</option>
-                        <option value="Autobus">Autobus</option>
+                        <option value="Metro">Subway</option>
+                        <option value="Tramwaj">Tram</option>
+                        <option value="Autobus">Bus</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="dni_dzialania">Working days</label>
-                        <input type="text" class="form-control" id="dni_dzialania" name="dni_dzialania" required>
+                        <select class="form-control" id="dni_dzialania" name="dni_dzialania" required>
+                            <option value="" disabled selected>Choose type</option>
+                            <option value="Weekends">Weekends</option>
+                            <option value="Weekdays">Weekdays</option>
+                            <option value="Whole week">Whole week</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="godzina_rozpoczecia">Starting time</label>
-                        <input type="text" class="form-control" id="godzina_rozpoczecia" name="godzina_rozpoczecia" required>
+                        <input type="time" class="form-control" id="godzina_rozpoczecia" name="godzina_rozpoczecia" required>
                     </div>
                     <div class="form-group">
                         <label for="godzina_zakonczenia">Ending time</label>
-                        <input type="text" class="form-control" id="godzina_zakonczenia" name="godzina_zakonczenia" required>
+                        <input type="time" class="form-control" id="godzina_zakonczenia" name="godzina_zakonczenia" required>
                     </div>
                     <div class="form-group">
                         <label for="id_centrali">Central ID</label>
-                        <input type="text" class="form-control" id="id_centrali" name="id_centrali" required>
+                        <input type="number" class="form-control" id="id_centrali" name="id_centrali" min="1" placeholder="Type a number greater than 0"  required>
                     </div>
                     <div class="form-group">
                         <label for="id_trasy">Route ID</label>
-                        <input type="text" class="form-control" id="id_trasy" name="id_trasy" required>
+                        <input type="number" class="form-control" id="id_trasy" name="id_trasy" min="1" placeholder="Type a number greater than 0"  required>
                     </div>
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </form>
@@ -339,30 +344,35 @@
                         <label for="edit_typ_linii">Line type</label>
                         <select class="form-control" id="edit_typ_linii" name="typ_linii" required>
                         <option value="" disabled selected>Choose type</option>
-                        <option value="Metro">Metro</option>
-                        <option value="Tramwaj">Tramwaj</option>
-                        <option value="Autobus">Autobus</option>
+                        <option value="Metro">Subway</option>
+                        <option value="Tramwaj">Tram</option>
+                        <option value="Autobus">Bus</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_dni_dzialania">Working days</label>
-                        <input type="text" class="form-control" id="edit_dni_dzialania" name="dni_dzialania" required>
+                        <select class="form-control" id="edit_dni_dzialania" name="dni_dzialania" required>
+                        <option value="" disabled selected>Choose type</option>
+                        <option value="Weekends">Weekends</option>
+                        <option value="Weekdays">Weekdays</option>
+                        <option value="Whole week">Whole week</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_godzina_rozpoczecia">Starting time</label>
-                        <input type="text" class="form-control" id="edit_godzina_rozpoczecia" name="godzina_rozpoczecia" required>
+                        <input type="time" class="form-control" id="edit_godzina_rozpoczecia" name="godzina_rozpoczecia" required>
                     </div>
                     <div class="form-group">
                         <label for="edit_godzina_zakonczenia">Ending time</label>
-                        <input type="text" class="form-control" id="edit_godzina_zakonczenia" name="godzina_zakonczenia" required>
+                        <input type="time" class="form-control" id="edit_godzina_zakonczenia" name="godzina_zakonczenia" required>
                     </div>
                     <div class="form-group">
                         <label for="edit_id_centrali">Central ID</label>
-                        <input type="text" class="form-control" id="edit_id_centrali" name="id_centrali" required>
+                        <input type="number" class="form-control" id="edit_id_centrali" name="id_centrali" min="1" placeholder="Type a number greater than 0"  required>
                     </div>
                     <div class="form-group">
                         <label for="edit_id_trasy">Route ID</label>
-                        <input type="text" class="form-control" id="edit_id_trasy" name="id_trasy" required>
+                        <input type="number" class="form-control" id="edit_id_trasy" name="id_trasy" min="1" placeholder="Type a number greater than 0"   required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>

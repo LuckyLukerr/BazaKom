@@ -230,27 +230,32 @@
                 <form id="addNewEntryForm">
                     <div class="form-group">
                         <label for="imie">Name</label>
-                        <input type="text" class="form-control" id="imie" name="imie" required>
+                        <input type="text" class="form-control" placeholder="Type your name" id="imie" name="imie" required>
                     </div>
                     <div class="form-group">
                         <label for="nazwisko">Surname</label>
-                        <input type="text" class="form-control" id="nazwisko" name="nazwisko" required>
+                        <input type="text" class="form-control" placeholder="Type your surname" id="nazwisko" name="nazwisko" required>
                     </div>
                     <div class="form-group">
                         <label for="nr_telefonu">Phone Number</label>
-                        <input type="text" class="form-control" id="nr_telefonu" name="nr_telefonu" required>
+                        <input type="tel" class="form-control" id="nr_telefonu"  pattern="^\+?[0-9]{1,15}$" placeholder="Enter a valid phone number (e.g., +1234567890)."  name="nr_telefonu" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="text" class="form-control" id="email" name="email" required>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="Slogin">Username</label>
                         <input type="text" class="form-control" id="Slogin" name="login" required>
                     </div>
                     <div class="form-group">
-                        <label for="haslo">Password</label>
-                        <input type="text" class="form-control" id="haslo" name="haslo" required>
+                        <label for="edit_password">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="edit_password" name="password" required>
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                            Show
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
@@ -329,6 +334,16 @@
                 }
             });
         });
+    });
+    const passwordInput = document.getElementById('edit_password');
+    const togglePassword = document.getElementById('togglePassword');
+
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+
+        // Toggle button text
+        togglePassword.textContent = type === 'password' ? 'Show' : 'Hide';
     });
 </script>
 
