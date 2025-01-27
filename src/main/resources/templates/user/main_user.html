@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main Admin Page</title>
+  <title>Main User Page</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -82,6 +82,117 @@
       transform: scale(1.05);
       box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
     }
+
+
+    /* Flex container to place the card and the table side by side */
+    .container-flex {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 80px;
+      margin-top: 20px;
+    }
+
+    /* Style for the table */
+    table {
+      width: 100%;
+      max-width: 300px; /* Control table width */
+      border-collapse: collapse;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      text-align: center;
+      padding: 10px 12px; /* Adjusted padding for shorter columns */
+      font-size: 1.1rem;
+    }
+
+    table th {
+      background-color: #f0f8ff;
+      color: #333;
+      font-weight: 600;
+      border-bottom: 2px solid #ddd;
+    }
+
+    table td {
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+
+    /* Equal width for both columns */
+    table th, table td {
+      width: 50%; /* Ensure both columns are the same width */
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Button styles */
+    button {
+      width: 100%;
+      padding: 10px; /* Adjusted padding for smaller buttons */
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Light Green buttons (First column) */
+    button.btn-green {
+      background-color: #5bb65b;
+      color: #000000;
+    }
+
+    button.btn-green:hover {
+      background-color: #27c327;
+    }
+
+    /* Light Blue buttons (Second column) */
+    button.btn-blue {
+      background-color: #6fc7e3;
+      color: #000000;
+    }
+
+    button.btn-blue:hover {
+      background-color: #2092d8;
+    }
+
+    /* Adjusting the card to align with the table */
+    .card {
+      width: 18rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .card img {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card-body h5 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .card-body p {
+      font-size: 1rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -92,7 +203,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Main
+        <a class="nav-link" href="/main_admin">Main
           <span class="sr-only">(current)</span>
         </a>
       </li>
@@ -113,6 +224,43 @@
 <!-- Header -->
 <div class="header">
   <span>Welcome, [[${#httpServletRequest.remoteUser}]]!</span>
+</div>
+<div class="container-flex">
+  <div class="card">
+    <img src="/js/images/map1.png" class="card-img-top" alt="Control Transport Lines">
+    <div class="card-body">
+      <h5 class="card-title">Check Transport Lines</h5>
+      <p class="card-text">Manage and optimize transport routes, schedules, and line performance for the city.</p>
+      <a href="/linie_user" class="btn btn-primary">Take me there</a>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Short term</th>
+      <th>Long term</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><button class="btn btn-green">15 minutes</button></td>
+      <td><button class="btn btn-blue">15 days</button></td>
+    </tr>
+    <tr>
+      <td><button class="btn btn-green">75 minutes</button></td>
+      <td><button class="btn btn-blue">30 days</button></td>
+    </tr>
+    <tr>
+      <td><button class="btn btn-green">1 day</button></td>
+      <td><button class="btn btn-blue">45 days</button></td>
+    </tr>
+    <tr>
+      <td><button class="btn btn-green">3 days</button></td>
+      <td><button class="btn btn-blue">60 days</button></td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Scripts -->

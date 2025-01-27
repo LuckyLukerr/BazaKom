@@ -406,20 +406,7 @@
     </table>
   </div>
 </div>
-
 <a href="/main_admin" class="go-back-btn" onclick="goBack(event)">Go Back</a>
-
-<script>
-  function goBack(event) {
-    event.preventDefault(); // Prevent the default link behavior
-    if (window.history.length > 1) {
-      window.history.back(); // Use the browser's back functionality
-    } else {
-      window.location.href = "/main_admin"; // Fallback to the href if no history
-    }
-  }
-</script>
-
 <!-- Scripts -->
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
@@ -495,6 +482,14 @@
       });
     });
   });
+  function goBack(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    if (window.history.length > 1) {
+      window.history.back(); // Use the browser's back functionality
+    } else {
+      window.location.href = "/main_admin"; // Fallback to the href if no history
+    }
+  }
 </script>
 </body>
 </html>
