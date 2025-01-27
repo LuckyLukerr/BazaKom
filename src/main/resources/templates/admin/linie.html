@@ -286,7 +286,12 @@
                     </div>
                     <div class="form-group">
                         <label for="typ_linii">Line type</label>
-                        <input type="text" class="form-control" id="typ_linii" name="typ_linii" required>
+                        <select class="form-control" id="typ_linii" name="typ_linii" required>
+                        <option value="" disabled selected>Choose type</option>
+                        <option value="Metro">Metro</option>
+                        <option value="Tramwaj">Tramwaj</option>
+                        <option value="Autobus">Autobus</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="dni_dzialania">Working days</label>
@@ -332,7 +337,12 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_typ_linii">Line type</label>
-                        <input type="text" class="form-control" id="edit_typ_linii" name="typ_linii" required>
+                        <select class="form-control" id="edit_typ_linii" name="typ_linii" required>
+                        <option value="" disabled selected>Choose type</option>
+                        <option value="Metro">Metro</option>
+                        <option value="Tramwaj">Tramwaj</option>
+                        <option value="Autobus">Autobus</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_dni_dzialania">Working days</label>
@@ -494,6 +504,13 @@
             window.location.href = "/main_admin"; // Fallback to the href if no history
         }
     }
+    $(document).ready(function() {
+        // Inicjalizacja Select2 na elemencie o id 'fruit'
+        $('#typ_linii').select2({
+            placeholder: "Wybierz typ",
+            allowClear: true // umożliwia wyczyszczenie wyboru
+        });
+    });
 
 </script>
 </body>
