@@ -387,18 +387,18 @@
         <td th:text="${Pojazdy.id_centrali}">Central ID</td>
         <td>
           <button class="btn btn-primary btn-sm edit-button"
-                  th:data-id-lini="${Pojazdy.id_pojazdu}"
-                  th:data-nazwa-linii="${Pojazdy.vin}"
-                  th:data-typ-linii="${Pojazdy.rodzaj_pojazdu}"
-                  th:data-dni-dzialania="${Pojazdy.data_waznosci_przegladu}"
-                  th:data-godzina-rozpoczecia="${Pojazdy.rodzaj_paliwa}"
-                  th:data-godzina-zakonczenia="${Pojazdy.liczba_miejsc_siedzacych}"
+                  th:data-id-pojazdu="${Pojazdy.id_pojazdu}"
+                  th:data-vin="${Pojazdy.vin}"
+                  th:data-rodzaj-pojazdu="${Pojazdy.rodzaj_pojazdu}"
+                  th:data-data-waznosci-przegladu="${Pojazdy.data_waznosci_przegladu}"
+                  th:data-rodzaj-paliwa="${Pojazdy.rodzaj_paliwa}"
+                  th:data-liczba-miejsc-siedzacych="${Pojazdy.liczba_miejsc_siedzacych}"
                   th:data-id-centrali="${Pojazdy.id_centrali}"
                   data-toggle="modal"
                   data-target="#editEntryModal">
             Edit
           </button>
-          <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
+          <a th:href="@{'/deletePojazdy/' + ${Pojazdy.id_pojazdu}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
 
         </td>
       </tr>
