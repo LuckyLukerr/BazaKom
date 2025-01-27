@@ -79,6 +79,13 @@ public class AppController implements WebMvcConfigurer {
     @Autowired
     private PasazerowieDAO daoPasazerowie;
 
+    @RequestMapping("/pasazerowie")
+    public String viewPasazerowie(Model model) {
+        List<Pasazerowie> listPasazerowie = daoPasazerowie.list();
+        model.addAttribute("listPasazerowie", listPasazerowie);
+        return "admin/pasazerowie";
+    }
+
     @RequestMapping(value = "/savePasazerowie", method = RequestMethod.POST)
     public String savePasazerowie(@ModelAttribute("pasazerowie") Pasazerowie pasazerowie) {
         try {
@@ -88,6 +95,26 @@ public class AppController implements WebMvcConfigurer {
             System.out.println(e);
             return "redirect:/login";
         }
+    }
+    @RequestMapping(value = "/editPasazerowie", method = RequestMethod.POST)
+    public String editPasazerowie( @ModelAttribute("pasazerowie") Pasazerowie pasazerowie) {
+        Pasazerowie existingPasazerowie = daoPasazerowie.get(pasazerowie.getId_pasazera());  // Pobierz istniejący rekord po ID
+        // Zaktualizuj pola
+        existingPasazerowie.setId_pasazera(pasazerowie.getId_pasazera());
+        existingPasazerowie.setImie(pasazerowie.getImie());
+        existingPasazerowie.setNazwisko(pasazerowie.getNazwisko());
+        existingPasazerowie.setNr_telefonu(pasazerowie.getNr_telefonu());
+        existingPasazerowie.setEmail(pasazerowie.getEmail());
+        existingPasazerowie.setLogin(pasazerowie.getLogin());
+        existingPasazerowie.setHaslo(pasazerowie.getHaslo());
+        // Zaktualizuj rekord w bazie danych
+        daoPasazerowie.updatePasazerowie(existingPasazerowie);
+        return "redirect:/pasazerowie"; // Przekierowanie do listy linii
+    }
+    @RequestMapping("/deletePasazerowie/{id_pasazera}")
+    public String deletePasazerowie(@PathVariable(name = "id_pasazera") int id_pasazera) {
+        daoPasazerowie.deletePasazerowie(id_pasazera);
+        return "redirect:/pasazerowie";
     }
 
     //POJAZDY
