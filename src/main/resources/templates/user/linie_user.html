@@ -280,7 +280,7 @@
   <h1>Lines</h1>
 
   <div class="search-bar">
-    <input type="text" id="searchInput" class="form-control" placeholder="Search for Line Name..." onkeyup="searchLines()">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search for lines..." onkeyup="searchLines()">
   </div>
 
   <div class="table-responsive">
@@ -322,26 +322,40 @@
   }
 
   // Function to search through the table rows based on the Line Name
+  // Function to search through the table rows based on any column's content
   function searchLines() {
     let input = document.getElementById("searchInput");
     let filter = input.value.toUpperCase();
     let table = document.getElementById("lineTableBody");
     let tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows, and hide those that don't match the search query
+    // Loop through all table rows, and hide those that don't match the search query in any column
     for (let i = 0; i < tr.length; i++) {
-      let td = tr[i].getElementsByTagName("td")[0]; // Access the Line Name column (the first column)
-      if (td) {
-        let cellValue = td.textContent || td.innerText;
-        // Check if the Line Name starts with the search query
-        if (cellValue.toUpperCase().startsWith(filter)) {
-          tr[i].style.display = ""; // Show row if match
-        } else {
-          tr[i].style.display = "none"; // Hide row if no match
+      let td = tr[i].getElementsByTagName("td");
+      let rowMatches = false; // Variable to track if any cell matches the search query
+
+      // Loop through all columns (td) in the row
+      for (let j = 0; j < td.length; j++) {
+        if (td[j]) {
+          let cellValue = td[j].textContent || td[j].innerText;
+
+          // Check if the cell value contains the search query (not just starts with)
+          if (cellValue.toUpperCase().indexOf(filter) > -1) {
+            rowMatches = true; // Mark the row as matching
+            break; // Exit the inner loop if a match is found
+          }
         }
+      }
+
+      // Show or hide the row based on whether any column matches the search query
+      if (rowMatches) {
+        tr[i].style.display = ""; // Show row if it matches
+      } else {
+        tr[i].style.display = "none"; // Hide row if it does not match
       }
     }
   }
+
 </script>
 </script>
 <!-- Bootstrap JS -->
