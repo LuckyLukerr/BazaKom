@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Transport Lines</title>
-
+    <title>Main Admin Page</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
-
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
     <head>
         <meta charset="UTF-8"/>
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-        <title>Manage Transport Lines</title>
-
+        <title>Main Page</title>
         <!-- Bootstrap CSS -->
         <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-
         <style>
-
             body {
                 font-family: 'Open Sans', sans-serif;
                 background: linear-gradient(to bottom right, #aac1ca, #f8ffff);
@@ -37,20 +29,17 @@
                 display: flex;
                 flex-direction: column;
             }
-
             /* Navbar Styling */
             .navbar {
                 background: rgba(0, 0, 0, 0.8);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
-
             .navbar-brand {
                 font-size: 1.8rem;
                 font-weight: 600;
                 color: white !important;
                 letter-spacing: 1px;
             }
-
             .navbar-nav .nav-item .nav-link {
                 color: white;
                 font-size: 1.2rem;
@@ -58,7 +47,6 @@
                 margin-left: 15px;
                 transition: color 0.3s;
             }
-
             .navbar-nav .nav-item .nav-link:hover {
                 color: #ff8c00;
             }
@@ -69,7 +57,6 @@
                 text-align: center;
                 margin-top: 20px; /* Add margin to move content closer to the top */
             }
-
             h1 {
                 font-size: 2.5rem;
                 color: #1a202c;
@@ -86,13 +73,11 @@
                 transition: all 0.3s ease; /* Smooth hover effect */
                 box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1); /* Add shadow */
             }
-
             .btn-custom:hover {
                 background-color: #1271a3; /* Change color on hover */
                 transform: scale(1.05); /* Add slight enlargement */
                 box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
             }
-
             /* Button Styles */
             .btn-success {
                 background-color: #1e8c8d;
@@ -103,12 +88,73 @@
                 border: none;
                 transition: background-color 0.3s, transform 0.3s;
             }
-
             .btn-success:hover {
                 background-color: #127a7a;
                 transform: scale(1.05);
             }
-
+            /* Space between button and table */
+            .add-button {
+                margin-bottom: 20px; /* Add margin between button and table */
+            }
+            .table {
+                background-color: white;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .table th {
+                background-color: #1a202c;
+                color: white;
+                font-weight: bold;
+                padding: 15px;
+            }
+            .table td {
+                padding: 12px;
+                border-bottom: 1px solid #f1f1f1;
+            }
+            /* Button Styles for Table */
+            .btn-primary, .btn-danger {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                border-radius: 20px;
+                transition: transform 0.3s;
+            }
+            .btn-primary:hover {
+                background-color: #007bff;
+                transform: scale(1.05);
+            }
+            .btn-danger:hover {
+                background-color: #e74c3c;
+                transform: scale(1.05);
+            }
+            .modal-content {
+                border-radius: 10px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+            .modal-header {
+                background-color: #1e8c8d;
+                color: white;
+                margin-bottom: 10px;
+            }
+            .modal-body {
+                padding: 20px;
+            }
+            .form-group label {
+                font-size: 1.2rem;
+                color: #1a202c;
+                margin-bottom: 10px;
+            }
+            .form-control {
+                border-radius: 30px;
+                padding: 12px;
+                font-size: 1rem;
+                border: 1px solid #ddd;
+                transition: border-color 0.3s;
+            }
+            .form-control:focus {
+                border-color: #1e8c8d;
+                box-shadow: 0 0 5px rgba(30, 140, 141, 0.3);
+            }
             .go-back-btn {
                 position: fixed;
                 bottom: 20px;
@@ -126,168 +172,55 @@
                 background-color: #127a7a;
                 transform: scale(1.05);
             }
-
-            /* Space between button and table */
-            .add-button {
-                margin-bottom: 20px; /* Add margin between button and table */
-            }
-
-            /* Enhanced Table Styles */
-            .table {
-                background-color: #bab3b3; /* Light background for table */
-                border-radius: 15px; /* Rounded corners */
-                overflow: hidden;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-                border-collapse: separate; /* Ensure separation for better spacing */
-            }
-
-            .table th {
-                background-color: #676c71; /* Dark header for contrast */
-                color: #ffffff; /* White text for visibility */
-                font-weight: 900;
-                padding: 16px;
-                text-transform: uppercase; /* Uniform look for headers */
-                border-bottom: 2px solid #dee2e6; /* Add border below header */
-            }
-
-            .table td {
-                padding: 14px 20px; /* Spacious padding */
-                border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
-                font-weight: 900;
-                color: #000000; /* Dark text for readability */
-                vertical-align: middle; /* Align text vertically */
-            }
-
-            .table tbody tr:hover {
-                background-color: #e9ecef; /* Light gray background on hover */
-                transition: background-color 0.3s ease; /* Smooth transition */
-            }
-            .go-back-button {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 15px;
-                font-size: 16px;
-                cursor: pointer;
-                text-decoration: none;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                transition: background-color 0.3s ease;
-            }
-
-            .go-back-button:hover {
-                background-color: #0056b3;
-            }
-            /* Responsive adjustments */
-            @media (max-width: 768px) {
-                .table {
-                    font-size: 0.9rem; /* Smaller font for smaller screens */
-                }
-            }
-
-
-            /* Button Styles for Table */
-            .btn-primary, .btn-danger {
-                font-size: 0.9rem;
-                padding: 6px 12px;
-                border-radius: 20px;
-                transition: transform 0.3s;
-                margin-bottom: 6px;
-            }
-
-            .btn-primary:hover {
-                background-color: #007bff;
-                transform: scale(1.05);
-            }
-
-            .btn-danger:hover {
-                background-color: #e74c3c;
-                transform: scale(1.05);
-            }
-
-            .modal-content {
-                border-radius: 10px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            }
-
-            .modal-header {
-                background-color: #849191;
-                color: white;
-                margin-bottom: 10px;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .form-group label {
-                font-size: 1.2rem;
-                color: #1a202c;
-                margin-bottom: 10px;
-            }
-
-            .form-control {
-                border-radius: 30px;
-                padding: 12px;
-                font-size: 1rem;
-                border: 1px solid #ddd;
-                transition: border-color 0.3s;
-            }
-
-            .form-control:focus {
-                border-color: #adb6ad;
-                box-shadow: 0 0 5px rgba(60, 77, 78, 0.3);
-            }
-
             @media (max-width: 768px) {
                 h1 {
                     font-size: 2rem;
                 }
-
                 .btn-success {
                     font-size: 1rem;
                     padding: 8px 16px;
                 }
-
                 .table {
                     font-size: 0.9rem;
                 }
             }
         </style>
-</head>
+    </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand">Warsaw Public Transport Center</a>
+    <a class="navbar-brand" href="/">Warsaw Public Transport Center</a>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/main_admin">Main
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <div class="d-flex align-items-center">
-                    <a class="nav-link" th:inline="text" style="color:lightskyblue;">
-                        You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/index}">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Main
+                        <span class="sr-only">(current)</span>
                     </a>
-                    <form method="post" th:action="@{/index}" class="ml-3">
-                        <button class="btn-custom" type="submit" onclick="successfullyLogout()">Logout</button>
-                    </form>
-                </div>
-            </li>
-        </ul>
+                </li>
+                <li class="nav-item">
+                    <div class="d-flex align-items-center">
+                        <a class="nav-link" th:inline="text" style="color:lightskyblue;">
+                            You are logged in as <b style="text-transform:capitalize;">[[${#httpServletRequest.remoteUser}]]</b>
+                        </a>
+                        <form method="post" th:action="@{/index}" class="ml-3">
+                            <button class="btn-custom" type="submit" onclick="successfullyLogout()">Logout</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
-
 <!-- Add New Entry Modal -->
 <div class="modal fade" id="addNewEntryModal" tabindex="-1" role="dialog" aria-labelledby="addNewEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addNewEntryModalLabel">Add a New Transport Line</h5>
+                <h5 class="modal-title" id="addNewEntryModalLabel">Dodaj nową linię</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -295,46 +228,44 @@
             <div class="modal-body">
                 <form id="addNewEntryForm">
                     <div class="form-group">
-                        <label for="nazwa_linii">Line Name</label>
+                        <label for="nazwa_linii">Nazwa linii</label>
                         <input type="text" class="form-control" id="nazwa_linii" name="nazwa_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="typ_linii">Line Type</label>
+                        <label for="typ_linii">Typ linii</label>
                         <input type="text" class="form-control" id="typ_linii" name="typ_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="dni_dzialania">Operating Days</label>
+                        <label for="dni_dzialania">Dni działania</label>
                         <input type="text" class="form-control" id="dni_dzialania" name="dni_dzialania" required>
                     </div>
                     <div class="form-group">
-                        <label for="godzina_rozpoczecia">Start Time</label>
+                        <label for="godzina_rozpoczecia">Godzina rozpoczęcia</label>
                         <input type="text" class="form-control" id="godzina_rozpoczecia" name="godzina_rozpoczecia" required>
                     </div>
                     <div class="form-group">
-                        <label for="godzina_zakonczenia">End Time</label>
+                        <label for="godzina_zakonczenia">Godzina zakończenia</label>
                         <input type="text" class="form-control" id="godzina_zakonczenia" name="godzina_zakonczenia" required>
                     </div>
                     <div class="form-group">
-                        <label for="id_centrali">Central ID</label>
+                        <label for="id_centrali">ID centrali</label>
                         <input type="text" class="form-control" id="id_centrali" name="id_centrali" required>
                     </div>
                     <div class="form-group">
-                        <label for="id_trasy">Route ID</label>
+                        <label for="id_trasy">ID trasy</label>
                         <input type="text" class="form-control" id="id_trasy" name="id_trasy" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Zapisz</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Edit Entry Modal -->
 <div class="modal fade" id="editEntryModal" tabindex="-1" role="dialog" aria-labelledby="editEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEntryModalLabel">Edit Line</h5>
+                <h5 class="modal-title" id="editEntryModalLabel">Edytuj linię</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -343,69 +274,72 @@
                 <form id="editEntryForm">
                     <input type="hidden" id="edit_id_lini" name="id_lini"/>
                     <div class="form-group">
-                        <label for="edit_nazwa_linii">Line Name</label>
+                        <label for="edit_nazwa_linii">Nazwa linii</label>
                         <input type="text" class="form-control" id="edit_nazwa_linii" name="nazwa_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_typ_linii">Line Type</label>
+                        <label for="edit_typ_linii">Typ linii</label>
                         <input type="text" class="form-control" id="edit_typ_linii" name="typ_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_dni_dzialania">Operating Days</label>
+                        <label for="edit_dni_dzialania">Dni działania</label>
                         <input type="text" class="form-control" id="edit_dni_dzialania" name="dni_dzialania" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_godzina_rozpoczecia">Start Time</label>
+                        <label for="edit_godzina_rozpoczecia">Godzina rozpoczęcia</label>
                         <input type="text" class="form-control" id="edit_godzina_rozpoczecia" name="godzina_rozpoczecia" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_godzina_zakonczenia">End Time</label>
+                        <label for="edit_godzina_zakonczenia">Godzina zakończenia</label>
                         <input type="text" class="form-control" id="edit_godzina_zakonczenia" name="godzina_zakonczenia" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_id_centrali">Central ID</label>
+                        <label for="edit_id_centrali">ID centrali</label>
                         <input type="text" class="form-control" id="edit_id_centrali" name="id_centrali" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_id_trasy">Route ID</label>
+                        <label for="edit_id_trasy">ID trasy</label>
                         <input type="text" class="form-control" id="edit_id_trasy" name="id_trasy" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Main Content -->
 <div class="container text-center">
-    <h1>Lines</h1>
-    <a href="#" class="btn btn-success add-button" data-toggle="modal" data-target="#addNewEntryModal">Add New Line</a>
+    <h1>Linie</h1>
+    <!--  <a href="/new" class="btn btn-success add-button">Dodaj nowy adres</a>-->
+    <a href="#" class="btn btn-success add-button" data-toggle="modal"
+       data-target="#addNewEntryModal">Dodaj nową linię</a>
+    <!-- Table -->
     <div class="table-responsive">
         <table class="table table-bordered">
+            <!-- Table header -->
             <thead class="thead-dark">
             <tr>
-                <th>Line ID</th>
-                <th>Line Name</th>
-                <th>Line Type</th>
-                <th>Operating Days</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Central ID</th>
-                <th>Route ID</th>
-                <th>Actions</th>
+                <th>ID linii</th>
+                <th>Nazwa linii</th>
+                <th>Typ linii</th>
+                <th>Dni działania</th>
+                <th>Godzina rozpoczęcia</th>
+                <th>Godzina zakończenia</th>
+                <th>ID centrali</th>
+                <th>ID trasy</th>
+                <th>Akcje</th>
             </tr>
             </thead>
+            <!-- Table body -->
             <tbody>
             <tr th:each="Linie : ${listLinie}">
-                <td th:text="${Linie.id_lini}">Line ID</td>
-                <td th:text="${Linie.nazwa_linii}">Line Name</td>
-                <td th:text="${Linie.typ_linii}">Line Type</td>
-                <td th:text="${Linie.dni_dzialania}">Operating Days</td>
-                <td th:text="${Linie.godzina_rozpoczecia}">Start Time</td>
-                <td th:text="${Linie.godzina_zakonczenia}">End Time</td>
-                <td th:text="${Linie.id_centrali}">Central ID</td>
-                <td th:text="${Linie.id_trasy}">Route ID</td>
+                <td th:text="${Linie.id_lini}">ID linii</td>
+                <td th:text="${Linie.nazwa_linii}">Nazwa linii</td>
+                <td th:text="${Linie.typ_linii}">Typ linii</td>
+                <td th:text="${Linie.dni_dzialania}">Dni działania</td>
+                <td th:text="${Linie.godzina_rozpoczecia}">Godzina rozpoczęcia</td>
+                <td th:text="${Linie.godzina_zakonczenia}">Godzina zakończenia</td>
+                <td th:text="${Linie.id_centrali}">ID centrali</td>
+                <td th:text="${Linie.id_trasy}">ID trasy</td>
                 <td>
                     <button class="btn btn-primary btn-sm edit-button"
                             th:data-id-lini="${Linie.id_lini}"
@@ -416,19 +350,89 @@
                             th:data-godzina-zakonczenia="${Linie.godzina_zakonczenia}"
                             th:data-id-centrali="${Linie.id_centrali}"
                             th:data-id-trasy="${Linie.id_trasy}"
-                            data-toggle="modal" data-target="#editEntryModal">Edit</button>
-                    <a th:href="@{/linie/delete/{id_lini}(id_lini=${Linie.id_lini})}"
-                       class="btn btn-danger btn-sm">Delete</a>
+                            data-toggle="modal"
+                            data-target="#editEntryModal">
+                        Edytuj
+                    </button>
+                    <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm">Usuń</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
 <a href="/main_admin" class="go-back-btn" onclick="goBack(event)">Go Back</a>
-
+<!-- Scripts -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 <script>
+    $(document).ready(function() {
+        $('#addNewEntryForm').on('submit', function(event) {
+            event.preventDefault();
+            // Get CSRF token from the meta tag
+            var csrfToken = $('meta[name="_csrf"]').attr('content');
+            var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+            $.ajax({
+                url: '/saveLinie',
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#addNewEntryModal').modal('hide');
+                    location.reload(); // Reload the page to see the new entry
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+        // Handle Edit button click
+        $('.edit-button').on('click', function() {
+            const idLini = $(this).data('id-lini')
+            const nazwaLinii = $(this).data('nazwa-linii');
+            const typLinii = $(this).data('typ-linii');
+            const dniDzialania = $(this).data('dni-dzialania');
+            const godzinaRozpoczecia = $(this).data('godzina-rozpoczecia');
+            const godzinaZakonczenia = $(this).data('godzina-zakonczenia');
+            const idCentrali = $(this).data('id-centrali');
+            const idTrasy = $(this).data('id-trasy');
+            // Populate the modal with the data
+            $('#edit_id_lini').val(idLini);
+            $('#edit_nazwa_linii').val(nazwaLinii);
+            $('#edit_typ_linii').val(typLinii);
+            $('#edit_dni_dzialania').val(dniDzialania);
+            $('#edit_godzina_rozpoczecia').val(godzinaRozpoczecia);
+            $('#edit_godzina_zakonczenia').val(godzinaZakonczenia);
+            $('#edit_id_centrali').val(idCentrali);
+            $('#edit_id_trasy').val(idTrasy);
+        });
+        // Handle form submission
+        $('#editEntryForm').on('submit', function(event) {
+            event.preventDefault();
+            // Get CSRF token
+            const csrfToken = $('meta[name="_csrf"]').attr('content');
+            const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+            // Send AJAX request
+            $.ajax({
+                url: '/editLinie', // Adjust the endpoint as needed
+                type: 'POST',
+                data: $(this).serialize(),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    $('#editEntryModal').modal('hide');
+                    location.reload(); // Reload to show updated data
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
     function goBack(event) {
         event.preventDefault(); // Prevent the default link behavior
         if (window.history.length > 1) {

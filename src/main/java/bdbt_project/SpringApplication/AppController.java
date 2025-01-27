@@ -22,6 +22,7 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/linie").setViewName("admin/linie");
         registry.addViewController("/pojazdy").setViewName("admin/pojazdy");
         registry.addViewController("/pasazerowie").setViewName("admin/pasazerowie");
+        registry.addViewController("/linie_user").setViewName("user/linie_user");
 
         registry.addViewController("/main_admin").setViewName("admin/main_admin");
         registry.addViewController("/main_user").setViewName("user/main_user");
@@ -30,7 +31,6 @@ public class AppController implements WebMvcConfigurer {
     //LINIE
     @Autowired
     private LinieDAO daoLinie;
-
     @RequestMapping("/linie")
     public String viewLinie(Model model) {
         List<Linie> listLinie = daoLinie.list();
@@ -47,11 +47,14 @@ public class AppController implements WebMvcConfigurer {
             return "redirect:/linie";
         }
     }
-    
+    @RequestMapping(value = "/updateLinie", method = RequestMethod.POST)
+    public String updateLinie(@ModelAttribute("linie") Linie linie) {
+        daoLinie.updateLinie(linie);
+        return "redirect:linie";
+    }
     @RequestMapping(value = "/editLinie", method = RequestMethod.POST)
     public String editLinie( @ModelAttribute("linie") Linie linie) {
         Linie existingLinie = daoLinie.get(linie.getId_lini());  // Pobierz istniejący rekord po ID
-
         // Zaktualizuj pola
         existingLinie.setId_lini(linie.getId_lini());
         existingLinie.setNazwa_linii(linie.getNazwa_linii());
@@ -61,17 +64,16 @@ public class AppController implements WebMvcConfigurer {
         existingLinie.setGodzina_zakonczenia(linie.getGodzina_zakonczenia());
         existingLinie.setId_centrali(linie.getId_centrali());
         existingLinie.setId_trasy(linie.getId_trasy());
-
         // Zaktualizuj rekord w bazie danych
         daoLinie.updateLinie(existingLinie);
         return "redirect:/linie"; // Przekierowanie do listy linii
     }
-
     @RequestMapping("/deleteLinie/{id_lini}")
     public String deleteLinie(@PathVariable(name = "id_lini") int id_lini) {
         daoLinie.deleteLinie(id_lini);
         return "redirect:/linie";
     }
+
 
     //PASAZEROWIE
     @Autowired
