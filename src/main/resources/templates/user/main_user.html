@@ -99,8 +99,11 @@
     table {
       width: 100%;
       max-width: 300px; /* Control table width */
-      border-collapse: collapse;
+      border-collapse: separate; /* Prevent collapsing borders */
+      border-spacing: 0; /* Remove gaps between cells */
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 10px; /* Rounded corners */
+      overflow: hidden; /* Clip content to maintain round corners */
     }
 
     table th, table td {
@@ -124,10 +127,6 @@
     /* Equal width for both columns */
     table th, table td {
       width: 50%; /* Ensure both columns are the same width */
-    }
-
-    table tr:hover {
-      background-color: #f1f1f1;
     }
 
     /* Button styles */
