@@ -407,7 +407,7 @@
                             data-target="#editEntryModal">
                         Edit
                     </button>
-                    <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm">Delete</a>
+                    <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
                 </td>
             </tr>
             </tbody>
@@ -493,6 +493,9 @@
         } else {
             window.location.href = "/main_admin"; // Fallback to the href if no history
         }
+    }
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this record?");
     }
 
 </script>
