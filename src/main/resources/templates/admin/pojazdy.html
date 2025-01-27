@@ -430,7 +430,6 @@
             Edit
           </button>
           <a th:href="@{'/deletePojazdy/' + ${Pojazdy.id_pojazdu}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
-
         </td>
       </tr>
       </tbody>
@@ -518,9 +517,6 @@
       window.location.href = "/main_admin"; // Fallback to the href if no history
     }
   }
-  function confirmDelete() {
-    return confirm("Are you sure you want to delete this record?");
-  }
   $(document).ready(function() {
     // Inicjalizacja Select2 na elemencie o id 'fruit'
     $('#rodzaj_pojazdu').select2({
@@ -535,7 +531,9 @@
       allowClear: true // umożliwia wyczyszczenie wyboru
     });
   });
-
+  function confirmDelete() {
+    return confirm("Are you sure you want to delete this record?");
+  }
 </script>
 </body>
 </html>

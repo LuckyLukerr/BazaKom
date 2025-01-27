@@ -385,18 +385,6 @@
                 <td th:text="${Pasazerowie.login}">Username</td>
                 <td th:text="${Pasazerowie.haslo}">Password</td>
                 <td>
-                    <button class="btn btn-primary btn-sm edit-button"
-                            th:data-id-pasazera="${Pasazerowie.id_pasazera}"
-                            th:data-imie="${Pasazerowie.imie}"
-                            th:data-nazwisko="${Pasazerowie.nazwisko}"
-                            th:data-nr-telefonu="${Pasazerowie.nr_telefonu}"
-                            th:data-email="${Pasazerowie.email}"
-                            th:data-login="${Pasazerowie.login}"
-                            th:data-haslo="${Pasazerowie.haslo}"
-                            data-toggle="modal"
-                            data-target="#editEntryModal">
-                        Edit
-                    </button>
                     <a th:href="@{'/deletePasazerowie/' + ${Pasazerowie.id_pasazera}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
 
                 </td>
