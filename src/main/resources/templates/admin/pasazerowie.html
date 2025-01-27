@@ -346,7 +346,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_haslo">Password</label>
-                        <input type="text" class="form-control" id="edit_haslo" name="haslo" required>
+                        <input type="password" class="form-control" id="edit_haslo" name="haslo" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>
@@ -383,7 +383,7 @@
                 <td th:text="${Pasazerowie.nr_telefonu}">Phone Number</td>
                 <td th:text="${Pasazerowie.email}">Email</td>
                 <td th:text="${Pasazerowie.login}">Username</td>
-                <td th:text="${Pasazerowie.haslo}">Password</td>
+                <td th:text="${#strings.repeat('*', Pasazerowie.haslo.length())}">Password</td>
                 <td>
                     <a th:href="@{'/deletePasazerowie/' + ${Pasazerowie.id_pasazera}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
 
