@@ -494,6 +494,14 @@
             });
         });
     });
+    function goBack(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        if (window.history.length > 1) {
+            window.history.back(); // Use the browser's back functionality
+        } else {
+            window.location.href = "/main_admin"; // Fallback to the href if no history
+        }
+    }
 </script>
 </body>
 </html>

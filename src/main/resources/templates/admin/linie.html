@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Admin Page</title>
+    <title>Manage Passengers</title>
+
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
     <head>
         <meta charset="UTF-8"/>
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-        <title>Main Page</title>
+        <title>Manage Vehicles</title>
+
         <!-- Bootstrap CSS -->
         <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
         <style>
+
             body {
                 font-family: 'Open Sans', sans-serif;
                 background: linear-gradient(to bottom right, #aac1ca, #f8ffff);
@@ -29,17 +37,20 @@
                 display: flex;
                 flex-direction: column;
             }
+
             /* Navbar Styling */
             .navbar {
                 background: rgba(0, 0, 0, 0.8);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
+
             .navbar-brand {
                 font-size: 1.8rem;
                 font-weight: 600;
                 color: white !important;
                 letter-spacing: 1px;
             }
+
             .navbar-nav .nav-item .nav-link {
                 color: white;
                 font-size: 1.2rem;
@@ -47,6 +58,7 @@
                 margin-left: 15px;
                 transition: color 0.3s;
             }
+
             .navbar-nav .nav-item .nav-link:hover {
                 color: #ff8c00;
             }
@@ -57,6 +69,7 @@
                 text-align: center;
                 margin-top: 20px; /* Add margin to move content closer to the top */
             }
+
             h1 {
                 font-size: 2.5rem;
                 color: #1a202c;
@@ -73,11 +86,13 @@
                 transition: all 0.3s ease; /* Smooth hover effect */
                 box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1); /* Add shadow */
             }
+
             .btn-custom:hover {
                 background-color: #1271a3; /* Change color on hover */
                 transform: scale(1.05); /* Add slight enlargement */
                 box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
             }
+
             /* Button Styles */
             .btn-success {
                 background-color: #1e8c8d;
@@ -88,62 +103,95 @@
                 border: none;
                 transition: background-color 0.3s, transform 0.3s;
             }
+
             .btn-success:hover {
                 background-color: #127a7a;
                 transform: scale(1.05);
             }
+
             /* Space between button and table */
             .add-button {
                 margin-bottom: 20px; /* Add margin between button and table */
             }
+
+            /* Enhanced Table Styles */
             .table {
-                background-color: white;
-                border-radius: 10px;
+                background-color: #bab3b3; /* Light background for table */
+                border-radius: 15px; /* Rounded corners */
                 overflow: hidden;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+                border-collapse: separate; /* Ensure separation for better spacing */
             }
+
             .table th {
-                background-color: #1a202c;
-                color: white;
-                font-weight: bold;
-                padding: 15px;
+                background-color: #b3b6b8; /* Dark header for contrast */
+                color: #ffffff; /* White text for visibility */
+                padding: 16px;
+                text-transform: uppercase; /* Uniform look for headers */
+                border-bottom: 2px solid #dee2e6; /* Add border below header */
             }
+
             .table td {
-                padding: 12px;
-                border-bottom: 1px solid #f1f1f1;
+                padding: 14px 20px; /* Spacious padding */
+                border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
+                font-weight: 700;
+                color: #000000; /* Dark text for readability */
+                vertical-align: middle; /* Align text vertically */
             }
+
+            .table tbody tr:hover {
+                background-color: #e9ecef; /* Light gray background on hover */
+                transition: background-color 0.3s ease; /* Smooth transition */
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .table {
+                    font-size: 0.9rem; /* Smaller font for smaller screens */
+                }
+            }
+
+
             /* Button Styles for Table */
             .btn-primary, .btn-danger {
                 font-size: 0.9rem;
                 padding: 6px 12px;
                 border-radius: 20px;
                 transition: transform 0.3s;
+                margin-bottom: 6px;
             }
+
             .btn-primary:hover {
                 background-color: #007bff;
                 transform: scale(1.05);
             }
+
             .btn-danger:hover {
                 background-color: #e74c3c;
                 transform: scale(1.05);
             }
+
             .modal-content {
                 border-radius: 10px;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             }
+
             .modal-header {
-                background-color: #1e8c8d;
+                background-color: #849191;
                 color: white;
                 margin-bottom: 10px;
             }
+
             .modal-body {
                 padding: 20px;
             }
+
             .form-group label {
                 font-size: 1.2rem;
                 color: #1a202c;
                 margin-bottom: 10px;
             }
+
             .form-control {
                 border-radius: 30px;
                 padding: 12px;
@@ -151,9 +199,10 @@
                 border: 1px solid #ddd;
                 transition: border-color 0.3s;
             }
+
             .form-control:focus {
-                border-color: #1e8c8d;
-                box-shadow: 0 0 5px rgba(30, 140, 141, 0.3);
+                border-color: #adb6ad;
+                box-shadow: 0 0 5px rgba(60, 77, 78, 0.3);
             }
             .go-back-btn {
                 position: fixed;
@@ -172,14 +221,18 @@
                 background-color: #127a7a;
                 transform: scale(1.05);
             }
+
+
             @media (max-width: 768px) {
                 h1 {
                     font-size: 2rem;
                 }
+
                 .btn-success {
                     font-size: 1rem;
                     padding: 8px 16px;
                 }
+
                 .table {
                     font-size: 0.9rem;
                 }
@@ -220,7 +273,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addNewEntryModalLabel">Dodaj nową linię</h5>
+                <h5 class="modal-title" id="addNewEntryModalLabel">Add new line</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -228,31 +281,31 @@
             <div class="modal-body">
                 <form id="addNewEntryForm">
                     <div class="form-group">
-                        <label for="nazwa_linii">Nazwa linii</label>
+                        <label for="nazwa_linii">Line name</label>
                         <input type="text" class="form-control" id="nazwa_linii" name="nazwa_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="typ_linii">Typ linii</label>
+                        <label for="typ_linii">Line type</label>
                         <input type="text" class="form-control" id="typ_linii" name="typ_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="dni_dzialania">Dni działania</label>
+                        <label for="dni_dzialania">Working days</label>
                         <input type="text" class="form-control" id="dni_dzialania" name="dni_dzialania" required>
                     </div>
                     <div class="form-group">
-                        <label for="godzina_rozpoczecia">Godzina rozpoczęcia</label>
+                        <label for="godzina_rozpoczecia">Starting time</label>
                         <input type="text" class="form-control" id="godzina_rozpoczecia" name="godzina_rozpoczecia" required>
                     </div>
                     <div class="form-group">
-                        <label for="godzina_zakonczenia">Godzina zakończenia</label>
+                        <label for="godzina_zakonczenia">Ending time</label>
                         <input type="text" class="form-control" id="godzina_zakonczenia" name="godzina_zakonczenia" required>
                     </div>
                     <div class="form-group">
-                        <label for="id_centrali">ID centrali</label>
+                        <label for="id_centrali">Central ID</label>
                         <input type="text" class="form-control" id="id_centrali" name="id_centrali" required>
                     </div>
                     <div class="form-group">
-                        <label for="id_trasy">ID trasy</label>
+                        <label for="id_trasy">Route ID</label>
                         <input type="text" class="form-control" id="id_trasy" name="id_trasy" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Zapisz</button>
@@ -265,7 +318,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEntryModalLabel">Edytuj linię</h5>
+                <h5 class="modal-title" id="editEntryModalLabel">Edit the Line</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -274,72 +327,72 @@
                 <form id="editEntryForm">
                     <input type="hidden" id="edit_id_lini" name="id_lini"/>
                     <div class="form-group">
-                        <label for="edit_nazwa_linii">Nazwa linii</label>
+                        <label for="edit_nazwa_linii">Line name</label>
                         <input type="text" class="form-control" id="edit_nazwa_linii" name="nazwa_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_typ_linii">Typ linii</label>
+                        <label for="edit_typ_linii">Line type</label>
                         <input type="text" class="form-control" id="edit_typ_linii" name="typ_linii" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_dni_dzialania">Dni działania</label>
+                        <label for="edit_dni_dzialania">Working days</label>
                         <input type="text" class="form-control" id="edit_dni_dzialania" name="dni_dzialania" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_godzina_rozpoczecia">Godzina rozpoczęcia</label>
+                        <label for="edit_godzina_rozpoczecia">Starting time</label>
                         <input type="text" class="form-control" id="edit_godzina_rozpoczecia" name="godzina_rozpoczecia" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_godzina_zakonczenia">Godzina zakończenia</label>
+                        <label for="edit_godzina_zakonczenia">Ending time</label>
                         <input type="text" class="form-control" id="edit_godzina_zakonczenia" name="godzina_zakonczenia" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_id_centrali">ID centrali</label>
+                        <label for="edit_id_centrali">Central ID</label>
                         <input type="text" class="form-control" id="edit_id_centrali" name="id_centrali" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit_id_trasy">ID trasy</label>
+                        <label for="edit_id_trasy">Route ID</label>
                         <input type="text" class="form-control" id="edit_id_trasy" name="id_trasy" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <div class="container text-center">
-    <h1>Linie</h1>
+    <h1>Transport lines</h1>
     <!--  <a href="/new" class="btn btn-success add-button">Dodaj nowy adres</a>-->
     <a href="#" class="btn btn-success add-button" data-toggle="modal"
-       data-target="#addNewEntryModal">Dodaj nową linię</a>
+       data-target="#addNewEntryModal">Add new line</a>
     <!-- Table -->
     <div class="table-responsive">
         <table class="table table-bordered">
             <!-- Table header -->
             <thead class="thead-dark">
             <tr>
-                <th>ID linii</th>
-                <th>Nazwa linii</th>
-                <th>Typ linii</th>
-                <th>Dni działania</th>
-                <th>Godzina rozpoczęcia</th>
-                <th>Godzina zakończenia</th>
-                <th>ID centrali</th>
-                <th>ID trasy</th>
-                <th>Akcje</th>
+                <th>Line ID</th>
+                <th>Line name</th>
+                <th>Line type</th>
+                <th>Working days</th>
+                <th>Starting time</th>
+                <th>Ending time</th>
+                <th>Central ID</th>
+                <th>Route ID</th>
+                <th>Possible actions</th>
             </tr>
             </thead>
             <!-- Table body -->
             <tbody>
             <tr th:each="Linie : ${listLinie}">
-                <td th:text="${Linie.id_lini}">ID linii</td>
-                <td th:text="${Linie.nazwa_linii}">Nazwa linii</td>
-                <td th:text="${Linie.typ_linii}">Typ linii</td>
-                <td th:text="${Linie.dni_dzialania}">Dni działania</td>
-                <td th:text="${Linie.godzina_rozpoczecia}">Godzina rozpoczęcia</td>
-                <td th:text="${Linie.godzina_zakonczenia}">Godzina zakończenia</td>
-                <td th:text="${Linie.id_centrali}">ID centrali</td>
-                <td th:text="${Linie.id_trasy}">ID trasy</td>
+                <td th:text="${Linie.id_lini}">Line ID</td>
+                <td th:text="${Linie.nazwa_linii}">Line name</td>
+                <td th:text="${Linie.typ_linii}">Line type</td>
+                <td th:text="${Linie.dni_dzialania}">Working days</td>
+                <td th:text="${Linie.godzina_rozpoczecia}">Starting time</td>
+                <td th:text="${Linie.godzina_zakonczenia}">Ending time</td>
+                <td th:text="${Linie.id_centrali}">Central ID</td>
+                <td th:text="${Linie.id_trasy}">Route ID</td>
                 <td>
                     <button class="btn btn-primary btn-sm edit-button"
                             th:data-id-lini="${Linie.id_lini}"
@@ -352,9 +405,9 @@
                             th:data-id-trasy="${Linie.id_trasy}"
                             data-toggle="modal"
                             data-target="#editEntryModal">
-                        Edytuj
+                        Edit
                     </button>
-                    <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm">Usuń</a>
+                    <a th:href="@{'/deleteLinie/' + ${Linie.id_lini}}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
             </tbody>
@@ -441,10 +494,7 @@
             window.location.href = "/main_admin"; // Fallback to the href if no history
         }
     }
+
 </script>
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
