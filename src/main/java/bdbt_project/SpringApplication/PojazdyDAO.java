@@ -33,7 +33,7 @@ public class PojazdyDAO {
 
     public void savePojazdy(Pojazdy pojazdy) {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("pojazdy").usingGeneratedKeyColumns("id_pojazdu").usingColumns("vin", "data_waznosci_przegladu", "rodzaj_paliwa", "liczba_miejsc_siedzacych", "rodzaj_pojazdu", "id_centrali");
+        insertActor.withTableName("pojazdy").usingGeneratedKeyColumns("id_pojazdu").usingColumns("vin", "rodzaj_pojazdu", "data_waznosci_przegladu", "rodzaj_paliwa", "liczba_miejsc_siedzacych", "id_centrali");
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(pojazdy);
         insertActor.execute(param);
@@ -48,7 +48,7 @@ public class PojazdyDAO {
     }
 
     public void updatePojazdy(Pojazdy pojazdy) {
-        String sql = "UPDATE pojazdy SET vin=:vin, data_waznosci_przegladu=:data_waznosci_przegladu, liczba_miejsc_siedzacych=:liczba_miejsc_siedzacych, rodzaj_pojazdu=:rodzaj_pojazdu WHERE id_pojazdu=:id_pojazdu";
+        String sql = "UPDATE pojazdy SET vin=:vin, data_waznosci_przegladu=:data_waznosci_przegladu, liczba_miejsc_siedzacych=:liczba_miejsc_siedzacych, rodzaj_pojazdu=:rodzaj_pojazdu, rodzaj_paliwa=:rodzaj_paliwa WHERE id_pojazdu=:id_pojazdu";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(pojazdy);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql, param);
