@@ -292,7 +292,7 @@
           </div>
           <div class="form-group">
             <label for="Data_waznosci_przegladu">Inspection expiry date</label>
-            <input type="text" class="form-control" id="Data_waznosci_przegladu" name="Data_waznosci_przegladu" required>
+            <input type="date" class="form-control" id="Data_waznosci_przegladu" name="Data_waznosci_przegladu" required>
           </div>
           <div class="form-group">
             <label for="rodzaj_paliwa">Fuel type</label>
@@ -334,7 +334,7 @@
           </div>
           <div class="form-group">
             <label for="edit_data_waznosci_przegladu">Inspection Expiry Date</label>
-            <input type="text" class="form-control" id="edit_data_waznosci_przegladu" name="data_waznosci_przegladu" required>
+            <input type="date" class="form-control" id="edit_data_waznosci_przegladu" name="data_waznosci_przegladu" required>
           </div>
           <div class="form-group">
             <label for="edit_rodzaj_paliwa">Fuel Type</label>
@@ -455,15 +455,12 @@
       $('#edit_liczba_miejsc_siedzacych').val(liczbaMiejscSiedzacych);
       $('#edit_id_centrali').val(idCentrali);
     });
-
     // Handle form submission
     $('#editEntryForm').on('submit', function(event) {
       event.preventDefault();
-
       // Get CSRF token
       const csrfToken = $('meta[name="_csrf"]').attr('content');
       const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
-
       // Send AJAX request
       $.ajax({
         url: '/editPojazdy', // Adjust the endpoint as needed
