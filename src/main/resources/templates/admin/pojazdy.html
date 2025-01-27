@@ -130,6 +130,12 @@
         overflow: hidden;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
         border-collapse: separate; /* Ensure separation for better spacing */
+        table-layout: fixed;
+      }
+
+      .table th, .table td {
+        text-align: center; /* Center text horizontally */
+        vertical-align: middle; /* Center text vertically */
       }
 
       .table th {
@@ -140,18 +146,11 @@
         border-bottom: 2px solid #dee2e6; /* Add border below header */
       }
 
-      .table td {
-        padding: 14px 20px; /* Spacious padding */
-        border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
-        font-weight: 700;
-        color: #000000; /* Dark text for readability */
-        vertical-align: middle; /* Align text vertically */
-      }
-
       .table tbody tr:hover {
         background-color: #e9ecef; /* Light gray background on hover */
         transition: background-color 0.3s ease; /* Smooth transition */
       }
+
 
       /* Responsive adjustments */
       @media (max-width: 768px) {
@@ -391,19 +390,19 @@
   <a href="#" class="btn btn-success add-button" data-toggle="modal" data-target="#addNewEntryModal">Add new vehicle</a>
 
   <!-- Table -->
-  <div class="table-responsive">
+  <div class="table-responsive" >
     <table class="table table-bordered">
       <!-- Table header -->
       <thead class="thead-dark">
       <tr>
-        <th>Vehicle ID</th>
-        <th>VIN</th>
-        <th>Vehicle Type</th>
-        <th>Inspection Expiry Date</th>
-        <th>Fuel Type</th>
-        <th>Number of seats</th>
-        <th>Central ID</th>
-        <th>Actions</th>
+        <th class="text-center align-middle">Vehicle ID</th>
+        <th class="text-center align-middle">VIN</th>
+        <th class="text-center align-middle">Vehicle type</th>
+        <th class="text-center align-middle">Inspection expiry date</th>
+        <th class="text-center align-middle">Fuel type</th>
+        <th class="text-center align-middle">Number of seats</th>
+        <th class="text-center align-middle">Central ID</th>
+        <th class="text-center align-middle">Actions</th>
       </tr>
       </thead>
       <!-- Table body -->

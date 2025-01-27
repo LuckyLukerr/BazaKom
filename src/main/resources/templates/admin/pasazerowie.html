@@ -129,12 +129,16 @@
                 padding: 16px;
                 text-transform: uppercase; /* Uniform look for headers */
                 border-bottom: 2px solid #dee2e6; /* Add border below header */
+
+                /* Add these properties to center the text both vertically and horizontally */
+                text-align: center; /* Horizontally center */
+                vertical-align: center; /* Vertically center */
+                display: table-cell;
             }
 
             .table td {
                 padding: 14px 20px; /* Spacious padding */
                 border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
-                font-weight: 700;
                 color: #000000; /* Dark text for readability */
                 vertical-align: middle; /* Align text vertically */
             }
@@ -364,14 +368,14 @@
             <!-- Table header -->
             <thead class="thead-dark">
             <tr>
-                <th>Passenger ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Actions</th>
+                <th class="text-center align-middle">Passenger ID</th>
+                <th class="text-center align-middle">First name</th>
+                <th class="text-center align-middle">Last name</th>
+                <th class="text-center align-middle">Phone number</th>
+                <th class="text-center align-middle">Email</th>
+                <th class="text-center align-middle">Username</th>
+                <th class="text-center align-middle">Password</th>
+                <th class="text-center align-middle">Actions</th>
             </tr>
             </thead>
             <!-- Table body -->

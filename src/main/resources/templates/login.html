@@ -253,7 +253,7 @@
                         <div class="input-group">
                             <input type="password" class="form-control" id="haslo" name="haslo" required>
                             <button type="button" class="btn btn-outline-secondary" id="togglePassword">
-                            Show
+                                Show
                             </button>
                         </div>
                     </div>
@@ -335,16 +335,24 @@
             });
         });
     });
-    const passwordInput = document.getElementById('edit_password');
-    const togglePassword = document.getElementById('togglePassword');
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordInput = document.getElementById('haslo');
+        const togglePassword = document.getElementById('togglePassword');
 
-    togglePassword.addEventListener('click', () => {
-        const type = passwordInput.type === 'password' ? 'text' : 'password';
-        passwordInput.type = type;
-
-        // Toggle button text
-        togglePassword.textContent = type === 'password' ? 'Show' : 'Hide';
+        togglePassword.addEventListener('click', function () {
+            // Check the current input type and toggle between password and text
+            const currentType = passwordInput.type;
+            if (currentType === 'password') {
+                passwordInput.type = 'text';
+                togglePassword.textContent = 'Hide'; // Change button text to "Hide"
+            } else {
+                passwordInput.type = 'password';
+                togglePassword.textContent = 'Show'; // Change button text to "Show"
+            }
+        });
     });
+
+
 </script>
 
 </body>

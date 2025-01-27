@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View  Transport Lines</title>
+  <title>Manage Vehicles</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -14,12 +14,21 @@
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+  <!-- Dodanie CSS Select2 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+  <!-- Dodanie jQuery (Select2 wymaga jQuery) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Dodanie JavaScript Select2 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 
   <head>
     <meta charset="UTF-8"/>
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title>View Transport Lines</title>
+    <title>Manage Vehicles</title>
 
     <!-- Bootstrap CSS -->
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
@@ -109,24 +118,6 @@
         transform: scale(1.05);
       }
 
-      .go-back-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        background-color: #1e8c8d;
-        border-radius: 30px;
-        color: white;
-        font-size: 1.1rem;
-        padding: 10px 30px;
-        border: none;
-        transition: background-color 0.3s, transform 0.3s;
-      }
-      .go-back-btn:hover {
-        background-color: #127a7a;
-        transform: scale(1.05);
-      }
-
       /* Space between button and table */
       .add-button {
         margin-bottom: 20px; /* Add margin between button and table */
@@ -134,7 +125,7 @@
 
       /* Enhanced Table Styles */
       .table {
-        background-color: #bab3b3; /* Light background for table */
+        background-color: #dfdddd; /* Light background for table */
         border-radius: 15px; /* Rounded corners */
         overflow: hidden;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
@@ -142,9 +133,8 @@
       }
 
       .table th {
-        background-color: #676c71; /* Dark header for contrast */
+        background-color: #b3b6b8; /* Dark header for contrast */
         color: #ffffff; /* White text for visibility */
-        font-weight: 900;
         padding: 16px;
         text-transform: uppercase; /* Uniform look for headers */
         border-bottom: 2px solid #dee2e6; /* Add border below header */
@@ -153,7 +143,7 @@
       .table td {
         padding: 14px 20px; /* Spacious padding */
         border-bottom: 0.1px solid #dee2e6; /* Light border between rows */
-        font-weight: 900;
+        font-weight: 700;
         color: #000000; /* Dark text for readability */
         vertical-align: middle; /* Align text vertically */
       }
@@ -162,25 +152,7 @@
         background-color: #e9ecef; /* Light gray background on hover */
         transition: background-color 0.3s ease; /* Smooth transition */
       }
-      .go-back-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 15px;
-        font-size: 16px;
-        cursor: pointer;
-        text-decoration: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease;
-      }
 
-      .go-back-button:hover {
-        background-color: #0056b3;
-      }
       /* Responsive adjustments */
       @media (max-width: 768px) {
         .table {
@@ -231,7 +203,7 @@
 
       .form-control {
         border-radius: 30px;
-        padding: 12px;
+        padding: 6px 12px 6px;
         font-size: 1rem;
         border: 1px solid #ddd;
         transition: border-color 0.3s;
@@ -241,6 +213,24 @@
         border-color: #adb6ad;
         box-shadow: 0 0 5px rgba(60, 77, 78, 0.3);
       }
+      .go-back-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: #1e8c8d;
+        border-radius: 30px;
+        color: white;
+        font-size: 1.1rem;
+        padding: 10px 30px;
+        border: none;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      .go-back-btn:hover {
+        background-color: #127a7a;
+        transform: scale(1.05);
+      }
+
 
       @media (max-width: 768px) {
         h1 {
@@ -290,26 +280,21 @@
     <table class="table table-bordered">
       <thead class="thead-dark">
       <tr>
-        <th>Line ID</th>
         <th>Line Name</th>
         <th>Line Type</th>
         <th>Operating Days</th>
         <th>Start Time</th>
         <th>End Time</th>
-        <th>Central ID</th>
-        <th>Route ID</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="Linie : ${listLinie}">
-        <td th:text="${Linie.id_lini}">Line ID</td>
         <td th:text="${Linie.nazwa_linii}">Line Name</td>
         <td th:text="${Linie.typ_linii}">Line Type</td>
         <td th:text="${Linie.dni_dzialania}">Operating Days</td>
         <td th:text="${Linie.godzina_rozpoczecia}">Start Time</td>
         <td th:text="${Linie.godzina_zakonczenia}">End Time</td>
-        <td th:text="${Linie.id_centrali}">Central ID</td>
-        <td th:text="${Linie.id_trasy}">Route ID</td>
+
       </tr>
       </tbody>
     </table>
