@@ -293,7 +293,7 @@
           </div>
           <div class="form-group">
             <label for="Data_waznosci_przegladu">Inspection expiry date</label>
-            <input type="text" class="form-control" id="Data_waznosci_przegladu" name="Data_waznosci_przegladu" required>
+            <input type="date" class="form-control" id="Data_waznosci_przegladu" name="Data_waznosci_przegladu" required>
           </div>
           <div class="form-group">
             <label for="rodzaj_paliwa">Fuel type</label>
@@ -335,7 +335,7 @@
           </div>
           <div class="form-group">
             <label for="edit_data_waznosci_przegladu">Inspection Expiry Date</label>
-            <input type="text" class="form-control" id="edit_data_waznosci_przegladu" name="data_waznosci_przegladu" required>
+            <input type="date" class="form-control" id="edit_data_waznosci_przegladu" name="data_waznosci_przegladu" required>
           </div>
           <div class="form-group">
             <label for="edit_rodzaj_paliwa">Fuel Type</label>
@@ -388,12 +388,12 @@
         <td th:text="${Pojazdy.id_centrali}">Central ID</td>
         <td>
           <button class="btn btn-primary btn-sm edit-button"
-                  th:data-id-lini="${Pojazdy.id_pojazdu}"
-                  th:data-nazwa-linii="${Pojazdy.vin}"
-                  th:data-typ-linii="${Pojazdy.rodzaj_pojazdu}"
-                  th:data-dni-dzialania="${Pojazdy.data_waznosci_przegladu}"
-                  th:data-godzina-rozpoczecia="${Pojazdy.rodzaj_paliwa}"
-                  th:data-godzina-zakonczenia="${Pojazdy.liczba_miejsc_siedzacych}"
+                  th:data-id-pojazdu="${Pojazdy.id_pojazdu}"
+                  th:data-vin="${Pojazdy.vin}"
+                  th:data-rodzaj-pojazdu="${Pojazdy.rodzaj_pojazdu}"
+                  th:data-data-waznosci-przegladu="${Pojazdy.data_waznosci_przegladu}"
+                  th:data-rodzaj-paliwa="${Pojazdy.rodzaj_paliwa}"
+                  th:data-liczba-miejsc-siedzacych="${Pojazdy.liczba_miejsc_siedzacych}"
                   th:data-id-centrali="${Pojazdy.id_centrali}"
                   data-toggle="modal"
                   data-target="#editEntryModal">
@@ -455,15 +455,12 @@
       $('#edit_liczba_miejsc_siedzacych').val(liczbaMiejscSiedzacych);
       $('#edit_id_centrali').val(idCentrali);
     });
-
     // Handle form submission
     $('#editEntryForm').on('submit', function(event) {
       event.preventDefault();
-
       // Get CSRF token
       const csrfToken = $('meta[name="_csrf"]').attr('content');
       const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
-
       // Send AJAX request
       $.ajax({
         url: '/editPojazdy', // Adjust the endpoint as needed

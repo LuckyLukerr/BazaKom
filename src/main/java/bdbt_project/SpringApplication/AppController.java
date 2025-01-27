@@ -90,6 +90,52 @@ public class AppController implements WebMvcConfigurer {
         }
     }
 
+    //POJAZDY
+
+    @Autowired
+    private PojazdyDAO daoPojazdy;
+    @RequestMapping("/pojazdy")
+    public String viewPojazdy(Model model) {
+        List<Pojazdy> listPojazdy = daoPojazdy.list();
+        model.addAttribute("listPojazdy", listPojazdy);
+        return "admin/pojazdy";
+    }
+    @RequestMapping(value = "/savePojazdy", method = RequestMethod.POST)
+    public String savePojazdy(@ModelAttribute("pojazdy") Pojazdy pojazdy) {
+        try {
+            daoPojazdy.savePojazdy(pojazdy);
+            return "redirect:/pojazdy";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "redirect:/pojazdy";
+        }
+    }
+    @RequestMapping(value = "/updatePojazdy", method = RequestMethod.POST)
+    public String updatePojazdy(@ModelAttribute("pojazdy") Pojazdy pojazdy) {
+        daoPojazdy.updatePojazdy(pojazdy);
+        return "redirect:/pojazdy";
+    }
+    @RequestMapping(value = "/editPojazdy", method = RequestMethod.POST)
+    public String editPojazdy( @ModelAttribute("pojazdy") Pojazdy pojazdy) {
+        Pojazdy existingPojazdy = daoPojazdy.get(pojazdy.getId_pojazdu());  // Pobierz istniejący rekord po ID
+        // Zaktualizuj pola
+        existingPojazdy.setId_pojazdu(pojazdy.getId_pojazdu());
+        existingPojazdy.setVin(pojazdy.getVin());
+        existingPojazdy.setData_waznosci_przegladu(pojazdy.getData_waznosci_przegladu());
+        existingPojazdy.setRodzaj_paliwa(pojazdy.getRodzaj_paliwa());
+        existingPojazdy.setLiczba_miejsc_siedzacych(pojazdy.getLiczba_miejsc_siedzacych());
+        existingPojazdy.setRodzaj_pojazdu(pojazdy.getRodzaj_pojazdu());
+        existingPojazdy.setId_centrali(pojazdy.getId_centrali());
+        // Zaktualizuj rekord w bazie danych
+        daoPojazdy.updatePojazdy(existingPojazdy);
+        return "redirect:/pojazdy"; // Przekierowanie do listy linii
+    }
+    @RequestMapping("/deletePojazdy/{id_pojzdu}")
+    public String deletePojazdy(@PathVariable(name = "id_pojazdu") int id_pojazdu) {
+        daoPojazdy.deletePojazdy(id_pojazdu);
+        return "redirect:/pojazdy";
+    }
+
     @Controller
     public class DashboardController
     {
