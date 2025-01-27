@@ -176,7 +176,7 @@ public class AppController implements WebMvcConfigurer {
         daoPojazdy.updatePojazdy(existingPojazdy);
         return "redirect:/pojazdy"; // Przekierowanie do listy linii
     }
-    @RequestMapping("/deletePojazdy/{id_pojzdu}")
+    @RequestMapping("/deletePojazdy/{id_pojazdu}")
     public String deletePojazdy(@PathVariable(name = "id_pojazdu") int id_pojazdu) {
         daoPojazdy.deletePojazdy(id_pojazdu);
         return "redirect:/pojazdy";

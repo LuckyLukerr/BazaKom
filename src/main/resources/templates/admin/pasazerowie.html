@@ -19,7 +19,7 @@
         <meta charset="UTF-8"/>
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-        <title>Manage Vehicles</title>
+        <title>Manage Passengers</title>
 
         <!-- Bootstrap CSS -->
         <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
@@ -346,7 +346,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_haslo">Password</label>
-                        <input type="text" class="form-control" id="edit_haslo" name="haslo" required>
+                        <input type="password" class="form-control" id="edit_haslo" name="haslo" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>
@@ -383,20 +383,8 @@
                 <td th:text="${Pasazerowie.nr_telefonu}">Phone Number</td>
                 <td th:text="${Pasazerowie.email}">Email</td>
                 <td th:text="${Pasazerowie.login}">Username</td>
-                <td th:text="${Pasazerowie.haslo}">Password</td>
+                <td th:text="${#strings.repeat('*', Pasazerowie.haslo.length())}">Password</td>
                 <td>
-                    <button class="btn btn-primary btn-sm edit-button"
-                            th:data-id-pasazera="${Pasazerowie.id_pasazera}"
-                            th:data-imie="${Pasazerowie.imie}"
-                            th:data-nazwisko="${Pasazerowie.nazwisko}"
-                            th:data-nr-telefonu="${Pasazerowie.nr_telefonu}"
-                            th:data-email="${Pasazerowie.email}"
-                            th:data-login="${Pasazerowie.login}"
-                            th:data-haslo="${Pasazerowie.haslo}"
-                            data-toggle="modal"
-                            data-target="#editEntryModal">
-                        Edit
-                    </button>
                     <a th:href="@{'/deletePasazerowie/' + ${Pasazerowie.id_pasazera}}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>
 
                 </td>
@@ -496,11 +484,7 @@
     });
     function goBack(event) {
         event.preventDefault(); // Prevent the default link behavior
-        if (window.history.length > 1) {
-            window.history.back(); // Use the browser's back functionality
-        } else {
-            window.location.href = "/main_admin"; // Fallback to the href if no history
-        }
+        window.location.href = "/main_admin"; // Always navigate to /main_admin
     }
     function confirmDelete() {
         return confirm("Are you sure you want to delete this record?");
