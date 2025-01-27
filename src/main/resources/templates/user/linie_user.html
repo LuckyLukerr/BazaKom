@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Vehicles</title>
+  <title>See Lines</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -14,13 +14,9 @@
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- Dodanie CSS Select2 -->
+  <!-- Add CSS and JS for Select2 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
-  <!-- Dodanie jQuery (Select2 wymaga jQuery) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- Dodanie JavaScript Select2 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 
@@ -66,6 +62,12 @@
         text-transform: uppercase;
         margin-left: 15px;
         transition: color 0.3s;
+      }
+      .search-bar {
+        margin-bottom: 20px;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .navbar-nav .nav-item .nav-link:hover {
@@ -276,6 +278,11 @@
 <!-- Main Content -->
 <div class="container text-center">
   <h1>Lines</h1>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search for Line Name..." onkeyup="searchLines()">
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -287,7 +294,7 @@
         <th>End Time</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="lineTableBody">
       <tr th:each="Linie : ${listLinie}">
         <td th:text="${Linie.nazwa_linii}">Line Name</td>
         <td th:text="${Linie.typ_linii}">Line Type</td>
@@ -304,14 +311,38 @@
 <a href="/main_user" class="go-back-btn" onclick="goBack(event)">Go Back</a>
 
 <script>
+  // Function to go back in history
   function goBack(event) {
-    event.preventDefault(); // Prevent the default link behavior
+    event.preventDefault();
     if (window.history.length > 1) {
-      window.history.back(); // Use the browser's back functionality
+      window.history.back();
     } else {
-      window.location.href = "/main_user"; // Fallback to the href if no history
+      window.location.href = "/main_user";
     }
   }
+
+  // Function to search through the table rows based on the Line Name
+  function searchLines() {
+    let input = document.getElementById("searchInput");
+    let filter = input.value.toUpperCase();
+    let table = document.getElementById("lineTableBody");
+    let tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those that don't match the search query
+    for (let i = 0; i < tr.length; i++) {
+      let td = tr[i].getElementsByTagName("td")[0]; // Access the Line Name column (the first column)
+      if (td) {
+        let cellValue = td.textContent || td.innerText;
+        // Check if the Line Name starts with the search query
+        if (cellValue.toUpperCase().startsWith(filter)) {
+          tr[i].style.display = ""; // Show row if match
+        } else {
+          tr[i].style.display = "none"; // Hide row if no match
+        }
+      }
+    }
+  }
+</script>
 </script>
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
